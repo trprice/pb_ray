@@ -1,0 +1,6 @@
+These are the TODO items. They are not ordered by priority (yet).
+
+- Decide on an open source license.
+- Decide on a build system for linux / OSX.
+- Implement said build system.
+- Continue on through the book.
