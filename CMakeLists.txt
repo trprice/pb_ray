@@ -10,9 +10,11 @@ set (Tutorial_VERSION_MINOR 0)
 # Setup the project directories.
 set (PROJECT_SOURCE_DIR src)
 set (PROJECT_INCLUDE_DIR include)
+set (PROJECT_BUILD_DIR build)
 set (PROJECT_BUILD_INCLUDE_DIR build/include)
 set (PROJECT_BIN_DIR bin)
 set (PROJECT_LIB_DIR lib)
+set (THIRD_PARTY_DIR third_party)
 
 
 # Setup output directories
@@ -30,10 +32,41 @@ include_directories("${PROJECT_BUILD_INCLUDE_DIR}")
 # Setup libraries to be linked.
 ###############
 
+# SHOULD GTEST BE ADDED AS A SUBDIRECTORY OF WHATEVER EXECUTABLE NEEDS IT
+# INSTEAD OF HERE AT THE TOP LEVEL?
 # Setup gtest
-set (GTEST_DIR ${PROJECT_SOURCE_DIR}/gtest)
-include_directories("${GTEST_DIR}/include")
-add_subdirectory (${GTEST_DIR})
+#add_subdirectory (${GTEST_DIR})
+#include_directories("${GTEST_DIR}")
+
+# Try using ExternalProject_Add( ) for gtest.
+# Enable ExternalProject CMake module
+INCLUDE (ExternalProject)
+
+# Set default ExternalProject root directory
+SET_DIRECTORY_PROPERTIES(PROPERTIES EP_PREFIX ${THIRD_PARTY_DIR})
+
+
+#   See http://stackoverflow.com/questions/9689183/cmake-googletest/9695234#9695234
+#   for an example
+ExternalProject_Add(
+    googletest
+    SVN_REPOSITORY http://googletest.googlecode.com/svn/trunk/
+    TIMEOUT 10
+    # Force separate output paths for debug and release builds to allow easy
+    # identification of correct lib in subsequent TARGET_LINK_LIBRARIES commands
+    CMAKE_ARGS -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG:PATH=DebugLibs
+               -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE:PATH=ReleaseLibs
+               -Dgtest_force_shared_crt=ON
+    # Disable install step
+    INSTALL_COMMAND ""
+    # Wrap download, configure and build steps in a script to log output
+    LOG_DOWNLOAD ON
+    LOG_CONFIGURE ON
+    LOG_BUILD ON)
+
+# Setup the gtest include directories.
+ExternalProject_Get_Property(googletest source_dir)
+include_directories("${source_dir}/include")
 
 # Setup core
 set (CORE_DIR ${PROJECT_SOURCE_DIR}/core)
@@ -44,9 +77,12 @@ set (LINK_LIBS ${LINK_LIBS} core)
 set (TEST_LIBS ${TEST_LIBS} gtest)
 
 
+###############
+# Setup executables
+###############
+
 # Setup core_tests
 set (CORE_TESTS_DIR ${PROJECT_SOURCE_DIR}/core_tests)
-include_directories("${CORE_TESTS_DIR}")
 add_subdirectory (${CORE_TESTS_DIR})
 
 
