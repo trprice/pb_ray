@@ -29,10 +29,10 @@ include_directories("${PROJECT_BUILD_INCLUDE_DIR}")
 
 
 # Set the configuration type to debug if it wasn't set by `make edit_cache`
-IF (NOT CMAKE_BUILD_TYPE)
-    SET (CMAKE_BUILD_TYPE Debug)
-    SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
-ENDIF (NOT CMAKE_BUILD_TYPE)
+#IF (NOT CMAKE_BUILD_TYPE)
+#    SET (CMAKE_BUILD_TYPE Debug)
+#    SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
+#ENDIF (NOT CMAKE_BUILD_TYPE)
 
 
 ###############
@@ -81,7 +81,9 @@ include_directories("${CORE_DIR}")
 add_subdirectory (${CORE_DIR})
 
 set (LINK_LIBS ${LINK_LIBS} core)
-set (TEST_LIBS ${TEST_LIBS} googletest)
+
+ExternalProject_Get_Property(googletest binary_dir)
+set (TEST_LIBS ${TEST_LIBS} ${binary_dir}/libgtest.a)
 
 
 ###############
