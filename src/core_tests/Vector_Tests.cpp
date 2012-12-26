@@ -35,6 +35,32 @@ TEST_F(VectorTest, OperatorPlusEqualsWorks) {
 }
 
 
+// Tests that the - operator works appropriately.
+TEST_F(VectorTest, OperatorMinusWorks) {
+	Vector a (2, 2, 2);
+	Vector b (1, 1, 1);
+	
+	Vector c = a - b;
+	
+	EXPECT_EQ (1, c.x);
+	EXPECT_EQ (1, c.y);
+	EXPECT_EQ (1, c.z);
+}
+
+
+// Tests that the -= operator works appropriately.
+TEST_F(VectorTest, OperatorMinusEqualsWorks) {
+    Vector a (1, 1, 1);
+    Vector b (2, 2, 2);
+
+    b -= a;
+
+	EXPECT_EQ (1, b.x);
+	EXPECT_EQ (1, b.y);
+	EXPECT_EQ (1, b.z);
+}
+
+
 // Tests that the * operator works appropriately.
 TEST_F(VectorTest, OperatorStarWorks) {
 	Vector a (1, 1, 1);

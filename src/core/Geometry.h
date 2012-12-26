@@ -41,6 +41,18 @@ class Vector {
             return *this;
         }
 
+        Vector operator-(const Vector &v) const {
+            return Vector (x - v.x, y - v.y, z - v.z);
+        }
+
+        Vector& operator-=(const Vector &v) {
+            x -= v.x;
+            y -= v.y;
+            z -= v.z;
+
+            return *this;
+        }
+
         Vector operator*(float f) const {
             return Vector (f * x, f * y, f * z);
         }
