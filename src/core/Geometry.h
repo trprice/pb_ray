@@ -84,12 +84,4 @@ class Vector {
         }
 };
 
-// Why do we need:
-//      1.) A 2nd operator* for Vector?
-//      2.) Operator* *outside* of the class?
-//inline Vector operator*(float f, const Vector &v) {
-//    return v*f;
-//    //return v *= f;
-//}
-
 #endif
