@@ -21,8 +21,13 @@ class Vector {
         float x, y, z;
 
 
-        // Constructor
-        Vector (float _x = 0, float _y = 0, float _z = 0)
+        // Constructors
+        Vector ()
+               : x(0), y(0), z(0)
+        {
+        }
+
+        Vector (float _x = 0.f, float _y = 0.f, float _z = 0.f)
                 : x(_x), y(_y), z(_z)
         {
         }
@@ -82,6 +87,21 @@ class Vector {
 
             return *this;
         }
+
+        Vector operator-() const {
+            return Vector (-x, -y, -z);
+        }
+
+        float operator[](int i) const {
+            assert ((i >= 0) && (i <= 2));
+            return (&x)[i];
+        }
+
+        float &operator[](int i) {
+            assert ((i >= 0) && (i <= 2));
+            return (&x)[i];
+        }
+
 };
 
 #endif
