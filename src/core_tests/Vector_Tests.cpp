@@ -11,7 +11,7 @@
 
 // Tests that the constructor defaults 0s correctly
 TEST_F(VectorTest, ConstructorWithoutArgsWorks) {
-    Vector a = new Vector();
+    Vector a;
 
 	EXPECT_EQ (0, a.x);
 	EXPECT_EQ (0, a.y);
