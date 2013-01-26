@@ -39,13 +39,11 @@ include_directories("${PROJECT_BUILD_INCLUDE_DIR}")
 # Setup libraries to be linked.
 ###############
 
-# SHOULD GTEST BE ADDED AS A SUBDIRECTORY OF WHATEVER EXECUTABLE NEEDS IT
-# INSTEAD OF HERE AT THE TOP LEVEL?
-# Setup gtest
-#add_subdirectory (${GTEST_DIR})
-#include_directories("${GTEST_DIR}")
+# Include Pthreads on Linux
+IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
+    FIND_PACKAGE (Threads)
+ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux")
 
-# Try using ExternalProject_Add( ) for gtest.
 # Enable ExternalProject CMake module
 INCLUDE (ExternalProject)
 
@@ -80,7 +78,7 @@ set (CORE_DIR ${PROJECT_SOURCE_DIR}/core)
 include_directories("${CORE_DIR}")
 add_subdirectory (${CORE_DIR})
 
-set (LINK_LIBS ${LINK_LIBS} core)
+set (LINK_LIBS ${CMAKE_THREAD_LIBS_INIT} ${LINK_LIBS} core)
 
 ExternalProject_Get_Property(googletest binary_dir)
 

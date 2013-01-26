@@ -9,6 +9,16 @@
 
 #include "Vector_Tests.h"
 
+// Tests that the constructor defaults 0s correctly
+TEST_F(VectorTest, ConstructorWithoutArgsWorks) {
+    Vector a;
+
+	EXPECT_EQ (0, a.x);
+	EXPECT_EQ (0, a.y);
+	EXPECT_EQ (0, a.z);
+}
+
+
 // Tests that the + operator works appropriately.
 TEST_F(VectorTest, OperatorPlusWorks) {
 	Vector a (1, 1, 1);
@@ -94,4 +104,74 @@ TEST_F(VectorTest, OperatorDivideWorks) {
     EXPECT_EQ (1, b.x);
     EXPECT_EQ (1, b.y);
     EXPECT_EQ (1, b.z);
+}
+
+
+// Test the unary negation operator.
+TEST_F (VectorTest, OperatorUnaryNegationWorks) {
+    const Vector a (3, 3, 3);
+
+    Vector b = -a;
+
+    EXPECT_EQ (-3, b.x);
+    EXPECT_EQ (-3, b.y);
+    EXPECT_EQ (-3, b.z);
+}
+
+
+// Test the [] const operator.
+TEST_F (VectorTest, OperatorBracketsConstWork) {
+    const Vector a (1, 2, 3);
+
+    EXPECT_EQ (1, a[0]);
+    EXPECT_EQ (2, a[1]);
+    EXPECT_EQ (3, a[2]);
+}
+
+
+// Test that the [] non-const operator returns a reference.
+//      Make sure we get the value and that it can be changed.
+TEST_F (VectorTest, OperatorBracketsNonConstReturnsRef) {
+    Vector a (1, 2, 3);
+
+    // Test that the references get the correct values.
+    float &x = a[0];
+    float &y = a[1];
+    float &z = a[2];
+
+    EXPECT_EQ (1, x);
+    EXPECT_EQ (2, y);
+    EXPECT_EQ (3, z);
+
+    // Because we got back references, test that we can
+    // change the values in the actual vector.
+    x = 4;
+    y = 5;
+    z = 6;
+
+    EXPECT_EQ (4, a[0]);
+    EXPECT_EQ (5, a[1]);
+    EXPECT_EQ (6, a[2]);
+}
+
+
+// Test the dot product of two vectors.
+TEST_F (VectorTest, DotProductWorks) {
+    Vector a (1, 1, 1);
+    Vector b (2, 2, 2);
+
+    float f = Dot (a, b);
+
+    EXPECT_EQ (6, f);
+}
+
+
+// Test the dot product of perpendicular vectors.
+TEST_F (VectorTest, DotProductPerpendicularVectors) {
+    Vector a (1, 0, 0);
+    Vector b (0, 1, 0);
+
+    float f = Dot (a, b);
+
+    EXPECT_EQ (0, f);
 }

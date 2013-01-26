@@ -11,6 +11,9 @@
 
 #include "assert.h"
 
+/*
+ * Vector class definition.
+ */
 class Vector {
     public:
         // Data Members
@@ -21,8 +24,8 @@ class Vector {
         float x, y, z;
 
 
-        // Constructor
-        Vector (float _x = 0, float _y = 0, float _z = 0)
+        // Constructors
+        Vector (float _x = 0.f, float _y = 0.f, float _z = 0.f)
                 : x(_x), y(_y), z(_z)
         {
         }
@@ -82,6 +85,29 @@ class Vector {
 
             return *this;
         }
+
+        Vector operator-() const {
+            return Vector (-x, -y, -z);
+        }
+
+        float operator[](int i) const {
+            assert ((i >= 0) && (i <= 2));
+            return (&x)[i];
+        }
+
+        float &operator[](int i) {
+            assert ((i >= 0) && (i <= 2));
+            return (&x)[i];
+        }
+
 };
+
+
+/*
+ * Vector inline non-member functions.
+ */
+inline float Dot (const Vector &v1, const Vector &v2) {
+    return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+}
 
 #endif
