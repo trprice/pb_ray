@@ -83,7 +83,18 @@ add_subdirectory (${CORE_DIR})
 set (LINK_LIBS ${LINK_LIBS} core)
 
 ExternalProject_Get_Property(googletest binary_dir)
-set (TEST_LIBS ${TEST_LIBS} ${binary_dir}/libgtest.a)
+
+if (WIN32)
+    if (CMAKE_BUILD_TYPE MATCHES Debug)
+        set (TEST_LIBS ${TEST_LIBS} ${binary_dir}/DebugLibs/gtest.lib)
+    endif if (CMAKE_BUILD_TYPE MATCHES Debug)
+
+    if (CMAKE_BUILD_TYPE MATCHES Release)
+        set (TEST_LIBS ${TEST_LIBS} ${binary_dir}/ReleaseLibs/gtest.lib)
+    endif if (CMAKE_BUILD_TYPE MATCHES Release)
+else (WIN32)
+    set (TEST_LIBS ${TEST_LIBS} ${binary_dir}/libgtest.a)
+endif (WIN32)
 
 
 ###############
