@@ -120,7 +120,7 @@ TEST_F (VectorTest, OperatorUnaryNegationWorks) {
 
 
 // Test the [] const operator.
-TEST_F (VectorTest, OperatorConstBracketsWork) {
+TEST_F (VectorTest, OperatorBracketsConstWork) {
     const Vector a (1, 2, 3);
 
     EXPECT_EQ (1, a[0]);
@@ -155,3 +155,23 @@ TEST_F (VectorTest, OperatorBracketsNonConstReturnsRef) {
 }
 
 
+// Test the dot product of two vectors.
+TEST_F (VectorTest, DotProductWorks) {
+    Vector a (1, 1, 1);
+    Vector b (2, 2, 2);
+
+    float f = Dot (a, b);
+
+    EXPECT_EQ (6, f);
+}
+
+
+// Test the dot product of perpendicular vectors.
+TEST_F (VectorTest, DotProductPerpendicularVectors) {
+    Vector a (1, 0, 0);
+    Vector b (0, 1, 0);
+
+    float f = Dot (a, b);
+
+    EXPECT_EQ (0, f);
+}

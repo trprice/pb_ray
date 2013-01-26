@@ -11,6 +11,9 @@
 
 #include "assert.h"
 
+/*
+ * Vector class definition.
+ */
 class Vector {
     public:
         // Data Members
@@ -98,5 +101,13 @@ class Vector {
         }
 
 };
+
+
+/*
+ * Vector inline non-member functions.
+ */
+inline float Dot (const Vector &v1, const Vector &v2) {
+    return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+}
 
 #endif
