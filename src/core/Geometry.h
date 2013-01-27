@@ -10,6 +10,7 @@
 #define VECTOR_H
 
 #include "assert.h"
+#include "math.h"
 
 /*
  * Vector class definition.
@@ -100,14 +101,62 @@ class Vector {
             return (&x)[i];
         }
 
+        
+        // Member Functions
+        float LengthSquared() const {
+            return x*x + y*y + z*z;
+        }
+
+        float Length() const {
+            return sqrtf (LengthSquared());
+        }
 };
 
 
-/*
- * Vector inline non-member functions.
- */
+/***************
+ ***************
+ * Inline Geometry Functions
+ ***************
+ ***************/
+
+// Compute the dot product of two vectors.
 inline float Dot (const Vector &v1, const Vector &v2) {
     return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+}
+
+
+// Compute the dot product of two vectors.
+inline float AbsDot (const Vector &v1, const Vector &v2) {
+    return fabsf (Dot (v1, v2));
+}
+
+
+// Compute the cross product of two vectors.
+// Returns a new vector.
+inline Vector Cross (const Vector &v1, const Vector v2) {
+    return Vector (((v1.y * v2.z) - (v1.z * v2.y)),
+                   ((v1.z * v2.x) - (v1.x * v2.z)),
+                   ((v1.x * v2.y) - (v1.y * v2.x))
+                  );
+}
+
+
+////////////////////
+// Function:
+//      Normalize
+//
+// Purpose:
+//      Compute the normalized version of a vector.
+//
+// Parameters:
+//      Vector &v
+//
+// Return:
+//      Returns a NEW vector that is the normalized
+//      version of the input vector.
+////////////////////
+inline Vector Normalize (const Vector &v) {
+    return v / v.Length();
 }
 
 #endif
