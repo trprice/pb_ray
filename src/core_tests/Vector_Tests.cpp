@@ -219,9 +219,14 @@ TEST_F (VectorTest, CrossProductWorks) {
 
     Vector c = Cross (a, b);
 
+    // Check the computed values.
 	EXPECT_EQ (0, c.x);
 	EXPECT_EQ (4, c.y);
 	EXPECT_EQ (-4, c.z);
+
+    // Make sure that we aren't looing at either a or b.
+    EXPECT_NE (&c, &a);
+    EXPECT_NE (&c, &b);
 }
 
 
@@ -240,20 +245,43 @@ TEST_F (VectorTest, LengthWorks) {
 
 
 TEST_F (VectorTest, NormalizeWorks) {
-    // This will generate a length of 1 and will make
-    // the tests below work.
-    Vector a (1, 0, 0);
+    Vector a (2, 2, 2);
 
     Vector b = Normalize (a);
+
+    float c = 2 / a.Length();
     
-    // For some reason, EXPECT_EQ doesn't like
-    //      comparing float values.
-    //      Check the googletest documentation so
-    //      that we can do a better test than this.
-    EXPECT_EQ (1, b.x);
-    EXPECT_EQ (0, b.y);
-    EXPECT_EQ (0, b.z);
+    EXPECT_FLOAT_EQ (c, b.x);
+    EXPECT_FLOAT_EQ (c, b.y);
+    EXPECT_FLOAT_EQ (c, b.z);
 
     // Check that the b is not pointing to a.
     EXPECT_NE (&b, &a);
 }
+
+
+TEST_F (VectorTest, CoordinateSystemXgtY) {
+    Vector a (2, 1, 1);
+    Vector b;
+    Vector c;
+
+    CoordinateSystem (a, &b, &c);
+
+    float b_x = -1 * (1 / (sqrtf(5))),
+          b_y = 0.f,
+          b_z = -2 * (1 / (sqrtf(5)));
+
+    EXPECT_FLOAT_EQ (b_x, b.x);
+    EXPECT_FLOAT_EQ (b_y, b.y);
+    EXPECT_FLOAT_EQ (b_z, b.z);
+
+    float c_x = (a.y * b_z) - (a.z * b_y),
+          c_y = (a.z * b_x) - (a.x * b_z),
+          c_z = (a.x * b_y) - (a.y * b_x);
+
+    EXPECT_FLOAT_EQ (c_x, c.x);
+    EXPECT_FLOAT_EQ (c_y, c.y);
+    EXPECT_FLOAT_EQ (c_z, c.z);
+}
+
+// Need to add tests for CoordinateSystem( ) for x < y and x == y.

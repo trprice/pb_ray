@@ -131,8 +131,20 @@ inline float AbsDot (const Vector &v1, const Vector &v2) {
 }
 
 
-// Compute the cross product of two vectors.
-// Returns a new vector.
+////////////////////
+// Function:
+//      Cross
+//
+// Purpose:
+//      Compute the cross product of two vectors.
+//
+// Parameters:
+//      const Vector &v1
+//      const Vector &v2
+//
+// Returns:
+//      Returns a new vector.
+////////////////////
 inline Vector Cross (const Vector &v1, const Vector v2) {
     return Vector (((v1.y * v2.z) - (v1.z * v2.y)),
                    ((v1.z * v2.x) - (v1.x * v2.z)),
@@ -157,6 +169,36 @@ inline Vector Cross (const Vector &v1, const Vector v2) {
 ////////////////////
 inline Vector Normalize (const Vector &v) {
     return v / v.Length();
+}
+
+
+////////////////////
+// Function:
+//      CoordinateSystem
+//
+// Purpose:
+//      Generate a coordinate system from a given vector.
+//
+// Parameters:
+//      Vector &v1 - The input vector from which the coordinate system will
+//                   be generated.
+//      Vector *v2 - The first generated perpendicular vector.
+//      Vector *v3 - The second generated perpendicular vector.
+//
+// Return:
+//      Nothing
+////////////////////
+inline void CoordinateSystem (const Vector &v1, Vector *v2, Vector *v3) {
+    if (fabsf (v1.x) > fabsf (v1.y)) {
+        float invLen = 1.f / sqrtf ((v1.x * v1.x) + (v1.z * v1.z));
+        *v2 = Vector (-v1.z * invLen, 0.f, -v1.x * invLen);
+    }
+    else {
+        float invLen = 1.f / sqrtf ((v1.y * v1.y) + (v1.z * v1.z));
+        *v2 = Vector (0.f, -v1.z * invLen, -v1.y * invLen);
+    }
+
+    *v3 = Cross (v1, *v2);
 }
 
 #endif
