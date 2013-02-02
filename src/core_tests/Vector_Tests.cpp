@@ -284,4 +284,53 @@ TEST_F (VectorTest, CoordinateSystemXgtY) {
     EXPECT_FLOAT_EQ (c_z, c.z);
 }
 
-// Need to add tests for CoordinateSystem( ) for x < y and x == y.
+
+TEST_F (VectorTest, CoordinateSystemXltY) {
+    Vector a (1, 2, 1);
+    Vector b;
+    Vector c;
+
+    CoordinateSystem (a, &b, &c);
+
+    float b_x = 0.f,
+          b_y = -1 * (1 / (sqrtf(5))),
+          b_z = -2 * (1 / (sqrtf(5)));
+
+    EXPECT_FLOAT_EQ (b_x, b.x);
+    EXPECT_FLOAT_EQ (b_y, b.y);
+    EXPECT_FLOAT_EQ (b_z, b.z);
+
+    float c_x = (a.y * b_z) - (a.z * b_y),
+          c_y = (a.z * b_x) - (a.x * b_z),
+          c_z = (a.x * b_y) - (a.y * b_x);
+
+    EXPECT_FLOAT_EQ (c_x, c.x);
+    EXPECT_FLOAT_EQ (c_y, c.y);
+    EXPECT_FLOAT_EQ (c_z, c.z);
+}
+
+
+TEST_F (VectorTest, CoordinateSystemXEqualsY) {
+    Vector a (1, 1, 2);
+    Vector b;
+    Vector c;
+
+    CoordinateSystem (a, &b, &c);
+
+    float b_x = 0.f,
+          b_y = -2 * (1 / (sqrtf(5))),
+          b_z = -1 * (1 / (sqrtf(5)));
+
+    EXPECT_FLOAT_EQ (b_x, b.x);
+    EXPECT_FLOAT_EQ (b_y, b.y);
+    EXPECT_FLOAT_EQ (b_z, b.z);
+
+    float c_x = (a.y * b_z) - (a.z * b_y),
+          c_y = (a.z * b_x) - (a.x * b_z),
+          c_z = (a.x * b_y) - (a.y * b_x);
+
+    EXPECT_FLOAT_EQ (c_x, c.x);
+    EXPECT_FLOAT_EQ (c_y, c.y);
+    EXPECT_FLOAT_EQ (c_z, c.z);
+}
+
