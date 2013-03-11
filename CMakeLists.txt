@@ -2,6 +2,11 @@ cmake_minimum_required (VERSION 2.6)
 
 project (pb_ray)
 
+# Set the initial C and CXX Flags and the toolchain
+set (CMAKE_CXX_FLAGS "-Wall -Wextra")
+set (_CMAKE_TOOLCHAIN_PREFIX llvm-)
+
+    
 # Setup the version number
 set (Tutorial_VERSION_MAJOR 1)
 set (Tutorial_VERSION_MINOR 0)
@@ -42,6 +47,7 @@ include_directories("${PROJECT_BUILD_INCLUDE_DIR}")
 # Include Pthreads on Linux
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
     FIND_PACKAGE (Threads)
+    SET (CMAKE_CXX_FLAGS ${CMAKE_C_FLAGS} "-pthread")
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux")
 
 # Enable ExternalProject CMake module
