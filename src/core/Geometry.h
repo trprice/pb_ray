@@ -1,13 +1,13 @@
 /*
- *  Vector.h
+ *  Geometry.h
  *  p_ray
  *
  *  Created by Taylor Price on 8/9/12.
  *  Copyright 2012 __MyCompanyName__. All rights reserved.
  *
  */
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef GEOMETRY_H
+#define GEOMETRY_H
 
 #include "assert.h"
 #include "math.h"
@@ -200,5 +200,25 @@ inline void CoordinateSystem (const Vector &v1, Vector *v2, Vector *v3) {
 
     *v3 = Cross (v1, *v2);
 }
+
+
+////////////////////
+// Class: Point
+//
+// Purpose:
+//      Encapsulate the data for a point and make related functionality
+//      available.
+////////////////////
+class Point {
+    public:
+        // Data Members
+        //      These are public for several reasons, even though it's not
+        //      good practice.
+        //          1.) Ease of access
+        //          2.) No overhead of function calls for accessors.
+        float x, y, z;
+
+};
+
 
 #endif
