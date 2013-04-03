@@ -218,6 +218,11 @@ class Point {
         //          2.) No overhead of function calls for accessors.
         float x, y, z;
 
+        // Constructors
+        Point (float _x = 0.f, float _y = 0.f, float _z = 0.f)
+                : x(_x), y(_y), z(_z)
+        {
+        }
 };
 
 
