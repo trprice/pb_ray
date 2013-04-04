@@ -1,6 +1,8 @@
 INCLUDE_DIRECTORIES("${CORE_TESTS_DIR}")
 
-ADD_EXECUTABLE (core_tests core_tests.cpp Vector_Tests.cpp)
+# Find the *.cpp files and add them to the executable.
+FILE (GLOB CPPSources *.cpp)
+ADD_EXECUTABLE (core_tests ${CPPSources})
 
 ADD_DEPENDENCIES (core_tests core)
 ADD_DEPENDENCIES (core_tests googletest)

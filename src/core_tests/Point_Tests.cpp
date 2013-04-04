@@ -17,3 +17,111 @@ TEST_F(PointTest, ConstructorWithoutArgsWorks) {
 	EXPECT_EQ (0, a.y);
 	EXPECT_EQ (0, a.z);
 }
+
+TEST_F(PointTest, ConstructorWithArgsWorks) {
+    Point a(1,1,1);
+
+	EXPECT_EQ (1, a.x);
+	EXPECT_EQ (1, a.y);
+	EXPECT_EQ (1, a.z);
+}
+
+
+// Test that adding a vector with the '+' operator offsets the Point correctly.
+TEST_F(PointTest, OperatorPlusWorksWithPositiveValues) {
+    Point p1; // 0, 0, 0
+    Vector v (1, 1, 1);
+
+    Point p2 = p1 + v;
+
+    EXPECT_EQ (1, p2.x);
+    EXPECT_EQ (1, p2.y);
+    EXPECT_EQ (1, p2.z);
+}
+
+TEST_F(PointTest, OperatorPlusWorksWithNegativeValues) {
+    Point p1; // 0, 0, 0
+    Vector v (-1, -1, -1);
+
+    Point p2 = p1 + v;
+
+    EXPECT_EQ (-1, p2.x);
+    EXPECT_EQ (-1, p2.y);
+    EXPECT_EQ (-1, p2.z);
+}
+
+TEST_F(PointTest, OperatorPlusEqualsWorksWithPositiveValues) {
+    Point p1; // 0, 0, 0
+    Vector v (1, 1, 1);
+
+    p1 += v;
+
+    EXPECT_EQ (1, p1.x);
+    EXPECT_EQ (1, p1.y);
+    EXPECT_EQ (1, p1.z);
+}
+
+TEST_F(PointTest, OperatorPlusEqualsWorksWithNegativeValues) {
+    Point p1; // 0, 0, 0
+    Vector v (-1, -1, -1);
+
+    p1 += v;
+
+    EXPECT_EQ (-1, p1.x);
+    EXPECT_EQ (-1, p1.y);
+    EXPECT_EQ (-1, p1.z);
+}
+
+TEST_F(PointTest, OperatorMinusWorksWithPositiveValues) {
+    Point p1; // 0, 0, 0
+    Vector v (1, 1, 1);
+
+    Point p2 = p1 - v;
+
+    EXPECT_EQ (-1, p2.x);
+    EXPECT_EQ (-1, p2.y);
+    EXPECT_EQ (-1, p2.z);
+}
+
+TEST_F(PointTest, OperatorMinusWorksWithNegativeValues) {
+    Point p1; // 0, 0, 0
+    Vector v (-1, -1, -1);
+
+    Point p2 = p1 - v;
+
+    EXPECT_EQ (1, p2.x);
+    EXPECT_EQ (1, p2.y);
+    EXPECT_EQ (1, p2.z);
+}
+
+TEST_F(PointTest, OperatorMinusEqualsWorksWithPositiveValues) {
+    Point p1; // 0, 0, 0
+    Vector v (1, 1, 1);
+
+    p1 -= v;
+
+    EXPECT_EQ (-1, p1.x);
+    EXPECT_EQ (-1, p1.y);
+    EXPECT_EQ (-1, p1.z);
+}
+
+TEST_F(PointTest, OperatorMinusEqualsWorksWithNegativeValues) {
+    Point p1; // 0, 0, 0
+    Vector v (-1, -1, -1);
+
+    p1 -= v;
+
+    EXPECT_EQ (1, p1.x);
+    EXPECT_EQ (1, p1.y);
+    EXPECT_EQ (1, p1.z);
+}
+
+TEST_F(PointTest, OperatorMinusPointMinusPointForVector) {
+    Point p1(1, 1, 1), p2 (0, 0, 0);
+
+    Vector v = p1 - p2;
+
+    EXPECT_EQ (1, v.x);
+    EXPECT_EQ (1, v.y);
+    EXPECT_EQ (1, v.z);
+}

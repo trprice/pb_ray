@@ -12,9 +12,19 @@
 #include "assert.h"
 #include "math.h"
 
-/*
- * Vector class definition.
- */
+/***************
+ ***************
+ * Geometry Classes
+ ***************
+ ***************/
+
+////////////////////
+// Class: Vector
+//
+// Purpose:
+//      Encapsulate the data for a vector and make related functionality
+//      available.
+////////////////////
 class Vector {
     public:
         // Data Members
@@ -113,6 +123,66 @@ class Vector {
 };
 
 
+////////////////////
+// Class: Point
+//
+// Purpose:
+//      Encapsulate the data for a point and make related functionality
+//      available.
+////////////////////
+class Point {
+    public:
+        //////////
+        // Data Members
+        //      These are public for several reasons, even though it's not
+        //      good practice.
+        //          1.) Ease of access
+        //          2.) No overhead of function calls for accessors.
+        //////////
+        float x, y, z;
+
+        
+        //////////
+        // Constructors
+        //////////
+        Point (float _x = 0.f, float _y = 0.f, float _z = 0.f)
+                : x(_x), y(_y), z(_z)
+        {
+        }
+
+
+        //////////
+        // Operators
+        //////////
+
+        // Offset a point by a Vector by adding ('+' and '+=')
+        //      or subtracting ('-' or '-=').
+        Point operator+ (const Vector &v) const {
+            return Point (x + v.x, y + v.y, z + v.z);
+        }
+
+        Point &operator+= (const Vector &v) {
+            x += v.x; y += v.y; z += v.z;
+            return *this;
+        }
+
+        Point operator- (const Vector &v) const {
+            return Point (x - v.x, y - v.y, z - v.z);
+        }
+
+        Point &operator-= (const Vector &v) {
+            x -= v.x; y -= v.y; z -= v.z;
+            return *this;
+        }
+
+        // Get the Vector between two points by subtracting ('-').
+        Vector operator- (const Point &p) const {
+            return Vector (x + p.x, y + p.y, z + p.z);
+        }
+
+};
+
+
 /***************
  ***************
  * Inline Geometry Functions
@@ -200,30 +270,5 @@ inline void CoordinateSystem (const Vector &v1, Vector *v2, Vector *v3) {
 
     *v3 = Cross (v1, *v2);
 }
-
-
-////////////////////
-// Class: Point
-//
-// Purpose:
-//      Encapsulate the data for a point and make related functionality
-//      available.
-////////////////////
-class Point {
-    public:
-        // Data Members
-        //      These are public for several reasons, even though it's not
-        //      good practice.
-        //          1.) Ease of access
-        //          2.) No overhead of function calls for accessors.
-        float x, y, z;
-
-        // Constructors
-        Point (float _x = 0.f, float _y = 0.f, float _z = 0.f)
-                : x(_x), y(_y), z(_z)
-        {
-        }
-};
-
 
 #endif
