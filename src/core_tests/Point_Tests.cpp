@@ -125,3 +125,15 @@ TEST_F(PointTest, OperatorMinusPointMinusPointForVector) {
     EXPECT_EQ (1, v.y);
     EXPECT_EQ (1, v.z);
 }
+
+TEST_F(PointTest, DistanceWorks) {
+    Point p1 (2, 2, 1), p2 (0, 0, 0);
+
+    EXPECT_EQ (3, Distance (p1, p2));
+}
+
+TEST_F(PointTest, DistanceSquaredWorks) {
+    Point p1 (2, 2, 1), p2 (0, 0, 0);
+
+    EXPECT_EQ (9, DistanceSquared (p1, p2));
+}

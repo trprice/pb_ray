@@ -334,3 +334,14 @@ TEST_F (VectorTest, CoordinateSystemXEqualsY) {
     EXPECT_FLOAT_EQ (c_z, c.z);
 }
 
+TEST_F (VectorTest, OperatorEqaulEqualTrue) {
+    Vector a (1, 1, 1), b (1, 1, 1);
+
+    ASSERT_TRUE (a == b);
+}
+
+TEST_F (VectorTest, OperatorEqaulEqualFalse) {
+    Vector a (1, 1, 1), b (2, 2, 2);
+
+    ASSERT_FALSE (a == b);
+}

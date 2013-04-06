@@ -111,6 +111,14 @@ class Vector {
             return (&x)[i];
         }
 
+        bool operator==(const Vector &v) const {
+            return x == v.x && y == v.y && z == v.z;
+        }
+
+        bool operator!=(const Vector &v) const {
+            return x != v.x || y != v.y || z != v.z;
+        }
+
         
         // Member Functions
         float LengthSquared() const {
@@ -185,7 +193,7 @@ class Point {
 
 /***************
  ***************
- * Inline Geometry Functions
+ * Vector Inline Functions
  ***************
  ***************/
 
@@ -269,6 +277,20 @@ inline void CoordinateSystem (const Vector &v1, Vector *v2, Vector *v3) {
     }
 
     *v3 = Cross (v1, *v2);
+}
+
+
+/***************
+ ***************
+ * Point Inline Functions
+ ***************
+ ***************/
+inline float Distance (const Point &p1, const Point &p2) {
+    return (p1 - p2).Length();
+}
+
+inline float DistanceSquared (const Point &p1, const Point &p2) {
+    return (p1 - p2).LengthSquared();
 }
 
 #endif
