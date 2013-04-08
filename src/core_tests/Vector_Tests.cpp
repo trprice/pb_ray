@@ -345,3 +345,15 @@ TEST_F (VectorTest, OperatorEqaulEqualFalse) {
 
     ASSERT_FALSE (a == b);
 }
+
+TEST_F (VectorTest, OperatorMinusEqualTrue) {
+    Vector a (1, 1, 1), b (2, 2, 2);
+
+    ASSERT_TRUE (a != b);
+}
+
+TEST_F (VectorTest, OperatorMinusEqualFalse) {
+    Vector a (1, 1, 1), b (1, 1, 1);
+
+    ASSERT_FALSE (a != b);
+}

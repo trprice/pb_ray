@@ -188,6 +188,14 @@ class Point {
             return Vector (x + p.x, y + p.y, z + p.z);
         }
 
+        bool operator==(const Point &v) const {
+            return x == v.x && y == v.y && z == v.z;
+        }
+
+        bool operator!=(const Point &v) const {
+            return x != v.x || y != v.y || z != v.z;
+        }
+
 };
 
 

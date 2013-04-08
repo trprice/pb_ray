@@ -101,7 +101,7 @@ endif (WIN32)
 
 # Setup core_tests
 set (CORE_TESTS_DIR ${PROJECT_SOURCE_DIR}/core_tests)
-add_subdirectory (${CORE_TESTS_DIR} EXCLUDE_FROM_ALL)
+add_subdirectory (${CORE_TESTS_DIR})
 
 
 # Add the executable

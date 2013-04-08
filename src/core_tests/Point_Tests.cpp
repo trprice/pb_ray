@@ -137,3 +137,27 @@ TEST_F(PointTest, DistanceSquaredWorks) {
 
     EXPECT_EQ (9, DistanceSquared (p1, p2));
 }
+
+TEST_F (PointTest, OperatorEqaulEqualTrue) {
+    Point a (1, 1, 1), b (1, 1, 1);
+
+    ASSERT_TRUE (a == b);
+}
+
+TEST_F (PointTest, OperatorEqaulEqualFalse) {
+    Point a (1, 1, 1), b (2, 2, 2);
+
+    ASSERT_FALSE (a == b);
+}
+
+TEST_F (PointTest, OperatorMinusEqualTrue) {
+    Point a (1, 1, 1), b (2, 2, 2);
+
+    ASSERT_TRUE (a != b);
+}
+
+TEST_F (PointTest, OperatorMinusEqualFalse) {
+    Point a (1, 1, 1), b (1, 1, 1);
+
+    ASSERT_FALSE (a != b);
+}
