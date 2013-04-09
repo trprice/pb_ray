@@ -14,6 +14,18 @@
 
 /***************
  ***************
+ * Forward Declarations
+ *
+ *      Possibly pull these into a header?
+ ***************
+ ***************/
+class Vector;
+class Point;
+class Normal;
+
+
+/***************
+ ***************
  * Geometry Classes
  ***************
  ***************/
@@ -40,6 +52,9 @@ class Vector {
                 : x(_x), y(_y), z(_z)
         {
         }
+
+        explicit Vector (const Point &n); // Force an explicit conversion.
+        explicit Vector (const Normal &n); // Force an explicit conversion.
 
 
         // Operators
@@ -188,6 +203,71 @@ class Point {
             return Vector (x + p.x, y + p.y, z + p.z);
         }
 
+        // Operators for adding and subracting Points from
+        //  each other to get a new Point instead of a Vector.
+        Point operator+ (const Point &p) const {
+            return Point (x + p.x, y + p.y, z + p.y);
+        }
+
+        Point &operator+= (const Point &v) {
+            x += v.x; y += v.y; z += v.z;
+            return *this;
+        }
+
+        
+        // Scalar Multiplication
+        Point operator*(float f) const {
+            return Point (f * x, f * y, f * z);
+        }
+
+        Point& operator*=(float f) {
+            x *= f;
+            y *= f;
+            z *= f;
+
+            return *this;
+        }
+
+
+        // Scalar Division
+        Point operator/(float f) const {
+            assert (f != 0);
+            float inverse =  1.f / f;
+            return Point (x * inverse, y * inverse, z * inverse);
+        }
+
+        Point& operator/=(float f) {
+            assert (f != 0);
+
+            float inverse =  1.f / f;
+            
+            x *= inverse;
+            y *= inverse;
+            z *= inverse;
+
+            return *this;
+        }
+
+
+        // Negation operator
+        Point operator-() const {
+            return Point (-x, -y, -z);
+        }
+
+
+        // Access operators
+        float operator[](int i) const {
+            assert ((i >= 0) && (i <= 2));
+            return (&x)[i];
+        }
+
+        float &operator[](int i) {
+            assert ((i >= 0) && (i <= 2));
+            return (&x)[i];
+        }
+
+
+        // Comparison Operators
         bool operator==(const Point &v) const {
             return x == v.x && y == v.y && z == v.z;
         }
@@ -198,6 +278,118 @@ class Point {
 
 };
 
+
+////////////////////
+// Class: Normal
+//
+// Purpose:
+//      Encapsulate the data for a normal and make related functionality
+//      available.
+////////////////////
+class Normal {
+    public:
+        // Data Members
+        //      These are public for several reasons, even though it's not
+        //      good practice.
+        //          1.) Ease of access
+        //          2.) No overhead of function calls for accessors.
+        float x, y, z;
+
+
+        // Constructors
+        Normal (float _x = 0.f, float _y = 0.f, float _z = 0.f)
+                : x(_x), y(_y), z(_z)
+        {
+        }
+
+
+        // Operators
+        Normal operator+(const Normal &v) const {
+            return Normal (x + v.x, y + v.y, z + v.z);
+        }
+
+        Normal& operator+=(const Normal &v) {
+            x += v.x;
+            y += v.y;
+            z += v.z;
+
+            return *this;
+        }
+
+        Normal operator-(const Normal &v) const {
+            return Normal (x - v.x, y - v.y, z - v.z);
+        }
+
+        Normal& operator-=(const Normal &v) {
+            x -= v.x;
+            y -= v.y;
+            z -= v.z;
+
+            return *this;
+        }
+
+        Normal operator*(float f) const {
+            return Normal (f * x, f * y, f * z);
+        }
+
+        Normal& operator*=(float f) {
+            x *= f;
+            y *= f;
+            z *= f;
+
+            return *this;
+        }
+
+        Normal operator/(float f) const {
+            assert (f != 0);
+            float inverse =  1.f / f;
+            return Normal (x * inverse, y * inverse, z * inverse);
+        }
+
+        Normal& operator/=(float f) {
+            assert (f != 0);
+
+            float inverse =  1.f / f;
+            
+            x *= inverse;
+            y *= inverse;
+            z *= inverse;
+
+            return *this;
+        }
+
+        Normal operator-() const {
+            return Normal (-x, -y, -z);
+        }
+
+        float operator[](int i) const {
+            assert ((i >= 0) && (i <= 2));
+            return (&x)[i];
+        }
+
+        float &operator[](int i) {
+            assert ((i >= 0) && (i <= 2));
+            return (&x)[i];
+        }
+
+        bool operator==(const Normal &v) const {
+            return x == v.x && y == v.y && z == v.z;
+        }
+
+        bool operator!=(const Normal &v) const {
+            return x != v.x || y != v.y || z != v.z;
+        }
+
+        
+        // Member Functions
+        float LengthSquared() const {
+            return x*x + y*y + z*z;
+        }
+
+        float Length() const {
+            return sqrtf (LengthSquared());
+        }
+};
 
 /***************
  ***************
@@ -214,6 +406,15 @@ inline float Dot (const Vector &v1, const Vector &v2) {
 // Compute the dot product of two vectors.
 inline float AbsDot (const Vector &v1, const Vector &v2) {
     return fabsf (Dot (v1, v2));
+}
+
+// Constructors
+inline Vector::Vector (const Point &p)
+    : x(p.x), y(p.y), z(p.z) {
+}
+
+inline Vector::Vector (const Normal &n)
+    : x(n.x), y(n.y), z(n.z) {
 }
 
 

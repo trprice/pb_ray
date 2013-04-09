@@ -1,5 +1,5 @@
 /*
- *  Vector_Tests.cpp
+ *  Normal_Tests.cpp
  *  p_ray
  *
  *  Created by Taylor Price on 8/9/12.
@@ -7,11 +7,11 @@
  *
  */
 
-#include "Vector_Tests.h"
+#include "Normal_Tests.h"
 
 // Tests that the constructor defaults 0s correctly
-TEST_F(VectorTest, ConstructorWithoutArgsWorks) {
-    Vector a;
+TEST_F(NormalTest, ConstructorWithoutArgsWorks) {
+    Normal a;
 
 	EXPECT_EQ (0, a.x);
 	EXPECT_EQ (0, a.y);
@@ -20,11 +20,11 @@ TEST_F(VectorTest, ConstructorWithoutArgsWorks) {
 
 
 // Tests that the + operator works appropriately.
-TEST_F(VectorTest, OperatorPlusWorks) {
-	Vector a (1, 1, 1);
-	Vector b (2, 2, 2);
+TEST_F(NormalTest, OperatorPlusWorks) {
+	Normal a (1, 1, 1);
+	Normal b (2, 2, 2);
 	
-	Vector c = a + b;
+	Normal c = a + b;
 	
 	EXPECT_EQ (3, c.x);
 	EXPECT_EQ (3, c.y);
@@ -33,9 +33,9 @@ TEST_F(VectorTest, OperatorPlusWorks) {
 
 
 // Tests that the += operator works appropriately.
-TEST_F(VectorTest, OperatorPlusEqualsWorks) {
-    Vector a (1, 1, 1);
-    Vector b (2, 2, 2);
+TEST_F(NormalTest, OperatorPlusEqualsWorks) {
+    Normal a (1, 1, 1);
+    Normal b (2, 2, 2);
 
     b += a;
 
@@ -46,11 +46,11 @@ TEST_F(VectorTest, OperatorPlusEqualsWorks) {
 
 
 // Tests that the - operator works appropriately.
-TEST_F(VectorTest, OperatorMinusWorks) {
-	Vector a (2, 2, 2);
-	Vector b (1, 1, 1);
+TEST_F(NormalTest, OperatorMinusWorks) {
+	Normal a (2, 2, 2);
+	Normal b (1, 1, 1);
 	
-	Vector c = a - b;
+	Normal c = a - b;
 	
 	EXPECT_EQ (1, c.x);
 	EXPECT_EQ (1, c.y);
@@ -59,9 +59,9 @@ TEST_F(VectorTest, OperatorMinusWorks) {
 
 
 // Tests that the -= operator works appropriately.
-TEST_F(VectorTest, OperatorMinusEqualsWorks) {
-    Vector a (1, 1, 1);
-    Vector b (2, 2, 2);
+TEST_F(NormalTest, OperatorMinusEqualsWorks) {
+    Normal a (1, 1, 1);
+    Normal b (2, 2, 2);
 
     b -= a;
 
@@ -72,10 +72,10 @@ TEST_F(VectorTest, OperatorMinusEqualsWorks) {
 
 
 // Tests that the * operator works appropriately.
-TEST_F(VectorTest, OperatorStarWorks) {
-	Vector a (1, 1, 1);
+TEST_F(NormalTest, OperatorStarWorks) {
+	Normal a (1, 1, 1);
 
-    Vector b = a * 2;
+    Normal b = a * 2;
 	
 	EXPECT_EQ (2, b.x);
 	EXPECT_EQ (2, b.y);
@@ -84,8 +84,8 @@ TEST_F(VectorTest, OperatorStarWorks) {
 
 
 // Tests that the *= operator works appropriately.
-TEST_F(VectorTest, OperatorStarEqualsWorks) {
-    Vector a (1, 1, 1);
+TEST_F(NormalTest, OperatorStarEqualsWorks) {
+    Normal a (1, 1, 1);
 
     a *= 3;
 
@@ -96,10 +96,10 @@ TEST_F(VectorTest, OperatorStarEqualsWorks) {
 
 
 // Test the / (divide) operator.
-TEST_F(VectorTest, OperatorDivideWorks) {
-    Vector a (2, 2, 2);
+TEST_F(NormalTest, OperatorDivideWorks) {
+    Normal a (2, 2, 2);
     
-    Vector b = a / 2;
+    Normal b = a / 2;
 
     EXPECT_EQ (1, b.x);
     EXPECT_EQ (1, b.y);
@@ -108,10 +108,10 @@ TEST_F(VectorTest, OperatorDivideWorks) {
 
 
 // Test the unary negation operator.
-TEST_F (VectorTest, OperatorUnaryNegationWorks) {
-    const Vector a (3, 3, 3);
+TEST_F (NormalTest, OperatorUnaryNegationWorks) {
+    const Normal a (3, 3, 3);
 
-    Vector b = -a;
+    Normal b = -a;
 
     EXPECT_EQ (-3, b.x);
     EXPECT_EQ (-3, b.y);
@@ -120,8 +120,8 @@ TEST_F (VectorTest, OperatorUnaryNegationWorks) {
 
 
 // Test the [] const operator.
-TEST_F (VectorTest, OperatorBracketsConstWork) {
-    const Vector a (1, 2, 3);
+TEST_F (NormalTest, OperatorBracketsConstWork) {
+    const Normal a (1, 2, 3);
 
     float x = a[0];
     float y = a[1];
@@ -135,8 +135,8 @@ TEST_F (VectorTest, OperatorBracketsConstWork) {
 
 // Test that the [] non-const operator returns a reference.
 //      Make sure we get the value and that it can be changed.
-TEST_F (VectorTest, OperatorBracketsNonConstReturnsRef) {
-    Vector a (1, 2, 3);
+TEST_F (NormalTest, OperatorBracketsNonConstReturnsRef) {
+    Normal a (1, 2, 3);
 
     // Test that the references get the correct values.
     float &x = a[0];
@@ -160,9 +160,9 @@ TEST_F (VectorTest, OperatorBracketsNonConstReturnsRef) {
 
 
 // Test the dot product of two vectors.
-TEST_F (VectorTest, DotProductWorks) {
-    Vector a (1, 1, 1);
-    Vector b (2, 2, 2);
+TEST_F (NormalTest, DotProductWorks) {
+    Normal a (1, 1, 1);
+    Normal b (2, 2, 2);
 
     float f = Dot (a, b);
 
@@ -171,9 +171,9 @@ TEST_F (VectorTest, DotProductWorks) {
 
 
 // Test the dot product of perpendicular vectors.
-TEST_F (VectorTest, DotProductPerpendicularVectors) {
-    Vector a (1, 0, 0);
-    Vector b (0, 1, 0);
+TEST_F (NormalTest, DotProductPerpendicularNormals) {
+    Normal a (1, 0, 0);
+    Normal b (0, 1, 0);
 
     float f = Dot (a, b);
 
@@ -182,9 +182,9 @@ TEST_F (VectorTest, DotProductPerpendicularVectors) {
 
 
 // Test the dot product of two vectors.
-TEST_F (VectorTest, DotProductWithNegativeVectorValuesWorks) {
-    Vector a (-1, -1, -1);
-    Vector b (2, 2, 2);
+TEST_F (NormalTest, DotProductWithNegativeNormalValuesWorks) {
+    Normal a (-1, -1, -1);
+    Normal b (2, 2, 2);
 
     float f = Dot (a, b);
 
@@ -193,9 +193,9 @@ TEST_F (VectorTest, DotProductWithNegativeVectorValuesWorks) {
 
 
 // Test the dot product of two vectors.
-TEST_F (VectorTest, AbsDotProductWithNegativeVectorValuesWorks) {
-    Vector a (-1, -1, -1);
-    Vector b (2, 2, 2);
+TEST_F (NormalTest, AbsDotProductWithNegativeNormalValuesWorks) {
+    Normal a (-1, -1, -1);
+    Normal b (2, 2, 2);
 
     float f = AbsDot (a, b);
 
@@ -204,11 +204,11 @@ TEST_F (VectorTest, AbsDotProductWithNegativeVectorValuesWorks) {
 
 
 // Test the cross product of two vectors.
-TEST_F (VectorTest, CrossProductDegenerateVector) {
-    Vector a (1, 1, 1);
-    Vector b (2, 2, 2);
+TEST_F (NormalTest, CrossProductDegenerateNormal) {
+    Normal a (1, 1, 1);
+    Normal b (2, 2, 2);
 
-    Vector c = Cross (a, b);
+    Normal c = Cross (a, b);
 
 	EXPECT_EQ (0, c.x);
 	EXPECT_EQ (0, c.y);
@@ -217,11 +217,11 @@ TEST_F (VectorTest, CrossProductDegenerateVector) {
 
 
 // Test the cross product of two vectors.
-TEST_F (VectorTest, CrossProductWorks) {
-    Vector a (-1, 1, 1);
-    Vector b (2, 2, 2);
+TEST_F (NormalTest, CrossProductWorks) {
+    Normal a (-1, 1, 1);
+    Normal b (2, 2, 2);
 
-    Vector c = Cross (a, b);
+    Normal c = Cross (a, b);
 
     // Check the computed values.
 	EXPECT_EQ (0, c.x);
@@ -234,24 +234,24 @@ TEST_F (VectorTest, CrossProductWorks) {
 }
 
 
-TEST_F (VectorTest, LengthSquaredWorks) {
-    Vector a (1, 1, 1);
+TEST_F (NormalTest, LengthSquaredWorks) {
+    Normal a (1, 1, 1);
 
     EXPECT_EQ (3, a.LengthSquared());
 }
 
 
-TEST_F (VectorTest, LengthWorks) {
-    Vector a (2, 2, 1); // Generates a length squared of 9.
+TEST_F (NormalTest, LengthWorks) {
+    Normal a (2, 2, 1); // Generates a length squared of 9.
 
     EXPECT_EQ (3, a.Length());
 }
 
 
-TEST_F (VectorTest, NormalizeWorks) {
-    Vector a (2, 2, 2);
+TEST_F (NormalTest, NormalizeWorks) {
+    Normal a (2, 2, 2);
 
-    Vector b = Normalize (a);
+    Normal b = Normalize (a);
 
     float c = 2 / a.Length();
     
@@ -264,10 +264,10 @@ TEST_F (VectorTest, NormalizeWorks) {
 }
 
 
-TEST_F (VectorTest, CoordinateSystemXgtY) {
-    Vector a (2, 1, 1);
-    Vector b;
-    Vector c;
+TEST_F (NormalTest, CoordinateSystemXgtY) {
+    Normal a (2, 1, 1);
+    Normal b;
+    Normal c;
 
     CoordinateSystem (a, &b, &c);
 
@@ -289,10 +289,10 @@ TEST_F (VectorTest, CoordinateSystemXgtY) {
 }
 
 
-TEST_F (VectorTest, CoordinateSystemXltY) {
-    Vector a (1, 2, 1);
-    Vector b;
-    Vector c;
+TEST_F (NormalTest, CoordinateSystemXltY) {
+    Normal a (1, 2, 1);
+    Normal b;
+    Normal c;
 
     CoordinateSystem (a, &b, &c);
 
@@ -314,10 +314,10 @@ TEST_F (VectorTest, CoordinateSystemXltY) {
 }
 
 
-TEST_F (VectorTest, CoordinateSystemXEqualsY) {
-    Vector a (1, 1, 2);
-    Vector b;
-    Vector c;
+TEST_F (NormalTest, CoordinateSystemXEqualsY) {
+    Normal a (1, 1, 2);
+    Normal b;
+    Normal c;
 
     CoordinateSystem (a, &b, &c);
 
@@ -338,26 +338,26 @@ TEST_F (VectorTest, CoordinateSystemXEqualsY) {
     EXPECT_FLOAT_EQ (c_z, c.z);
 }
 
-TEST_F (VectorTest, OperatorEqaulEqualTrue) {
-    Vector a (1, 1, 1), b (1, 1, 1);
+TEST_F (NormalTest, OperatorEqaulEqualTrue) {
+    Normal a (1, 1, 1), b (1, 1, 1);
 
     ASSERT_TRUE (a == b);
 }
 
-TEST_F (VectorTest, OperatorEqaulEqualFalse) {
-    Vector a (1, 1, 1), b (2, 2, 2);
+TEST_F (NormalTest, OperatorEqaulEqualFalse) {
+    Normal a (1, 1, 1), b (2, 2, 2);
 
     ASSERT_FALSE (a == b);
 }
 
-TEST_F (VectorTest, OperatorMinusEqualTrue) {
-    Vector a (1, 1, 1), b (2, 2, 2);
+TEST_F (NormalTest, OperatorMinusEqualTrue) {
+    Normal a (1, 1, 1), b (2, 2, 2);
 
     ASSERT_TRUE (a != b);
 }
 
-TEST_F (VectorTest, OperatorMinusEqualFalse) {
-    Vector a (1, 1, 1), b (1, 1, 1);
+TEST_F (NormalTest, OperatorMinusEqualFalse) {
+    Normal a (1, 1, 1), b (1, 1, 1);
 
     ASSERT_FALSE (a != b);
 }
