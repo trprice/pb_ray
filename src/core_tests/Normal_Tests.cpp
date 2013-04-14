@@ -159,7 +159,7 @@ TEST_F (NormalTest, OperatorBracketsNonConstReturnsRef) {
 }
 
 
-// Test the dot product of two vectors.
+// Test the dot product of two normals.
 TEST_F (NormalTest, DotProductWorks) {
     Normal a (1, 1, 1);
     Normal b (2, 2, 2);
@@ -170,7 +170,7 @@ TEST_F (NormalTest, DotProductWorks) {
 }
 
 
-// Test the dot product of perpendicular vectors.
+// Test the dot product of perpendicular normals.
 TEST_F (NormalTest, DotProductPerpendicularNormals) {
     Normal a (1, 0, 0);
     Normal b (0, 1, 0);
@@ -181,7 +181,7 @@ TEST_F (NormalTest, DotProductPerpendicularNormals) {
 }
 
 
-// Test the dot product of two vectors.
+// Test the dot product of two normals.
 TEST_F (NormalTest, DotProductWithNegativeNormalValuesWorks) {
     Normal a (-1, -1, -1);
     Normal b (2, 2, 2);
@@ -192,7 +192,7 @@ TEST_F (NormalTest, DotProductWithNegativeNormalValuesWorks) {
 }
 
 
-// Test the dot product of two vectors.
+// Test the dot product of two normals.
 TEST_F (NormalTest, AbsDotProductWithNegativeNormalValuesWorks) {
     Normal a (-1, -1, -1);
     Normal b (2, 2, 2);
@@ -203,7 +203,7 @@ TEST_F (NormalTest, AbsDotProductWithNegativeNormalValuesWorks) {
 }
 
 
-// Test the cross product of two vectors.
+// Test the cross product of two normals.
 TEST_F (NormalTest, CrossProductDegenerateNormal) {
     Normal a (1, 1, 1);
     Normal b (2, 2, 2);
@@ -216,7 +216,7 @@ TEST_F (NormalTest, CrossProductDegenerateNormal) {
 }
 
 
-// Test the cross product of two vectors.
+// Test the cross product of two normals.
 TEST_F (NormalTest, CrossProductWorks) {
     Normal a (-1, 1, 1);
     Normal b (2, 2, 2);

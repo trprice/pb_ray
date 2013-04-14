@@ -402,10 +402,29 @@ inline float Dot (const Vector &v1, const Vector &v2) {
     return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
 }
 
+// Compute the dot product of two normals.
+inline float Dot (const Normal &n1, const Normal &n2) {
+    return (n1.x * n2.x) + (n1.y * n2.y) + (n1.z * n2.z);
+}
+
+// Compute the dot product of a vector and a normal.
+inline float Dot (const Vector &v, const Normal &n) {
+    return (v.x * n.x) + (v.y * n.y) + (v.z * n.z);
+}
 
 // Compute the dot product of two vectors.
 inline float AbsDot (const Vector &v1, const Vector &v2) {
     return fabsf (Dot (v1, v2));
+}
+
+// Compute the dot product of two normals.
+inline float AbsDot (const Normal &n1, const Normal &n2) {
+    return fabsf (Dot (n1, n2));
+}
+
+// Compute the dot product of a vector and a normal.
+inline float AbsDot (const Vector &v, const Normal &n) {
+    return fabsf (Dot (v, n));
 }
 
 // Constructors
@@ -423,11 +442,13 @@ inline Vector::Vector (const Normal &n)
 //      Cross
 //
 // Purpose:
-//      Compute the cross product of two vectors.
+//      Compute the cross product of two vectors, normals,
+//      and a vector and a normal.
 //
 // Parameters:
-//      const Vector &v1
-//      const Vector &v2
+//      const Vector &v1, const Vector &v2
+//      const Normal &n1, const Normal &n2
+//      const Vector &v, const Normal &n
 //
 // Returns:
 //      Returns a new vector.
@@ -436,6 +457,13 @@ inline Vector Cross (const Vector &v1, const Vector v2) {
     return Vector (((v1.y * v2.z) - (v1.z * v2.y)),
                    ((v1.z * v2.x) - (v1.x * v2.z)),
                    ((v1.x * v2.y) - (v1.y * v2.x))
+                  );
+}
+
+inline Normal Cross (const Normal &n1, const Normal n2) {
+    return Normal (((n1.y * n2.z) - (n1.z * n2.y)),
+                   ((n1.z * n2.x) - (n1.x * n2.z)),
+                   ((n1.x * n2.y) - (n1.y * n2.x))
                   );
 }
 
