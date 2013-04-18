@@ -1,5 +1,5 @@
 /*
- *  Vector_Tests.h
+ *  Normal_Tests.h
  *  p_ray
  *
  *  Created by Taylor Price on 8/9/12.
@@ -10,16 +10,16 @@
 #include "Geometry.h"
 #include "gtest/gtest.h"
 
-class VectorTest : public ::testing::Test {
+class NormalTest : public ::testing::Test {
  protected:
   // You can remove any or all of the following functions if its body
   // is empty.
 
-  VectorTest() {
+  NormalTest() {
     // You can do set-up work for each test here.
   }
 
-  virtual ~VectorTest() {
+  virtual ~NormalTest() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
 

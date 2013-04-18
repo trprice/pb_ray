@@ -1,0 +1,1 @@
+let g:syntastic_cpp_compiler_options =  '-I ~/development/pb_ray/src/core -I ../build/third_party/src/googletest/include/'
