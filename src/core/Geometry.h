@@ -26,6 +26,14 @@ class Normal;
 
 /***************
  ***************
+ * Global Constants
+ ***************
+ ***************/
+#define RAY_EPSILON 1e-3f
+
+
+/***************
+ ***************
  * Geometry Classes
  ***************
  ***************/
@@ -390,6 +398,51 @@ class Normal {
             return sqrtf (LengthSquared());
         }
 };
+
+
+////////////////////
+// Class: Ray
+//
+// Purpose:
+//      Encapsulate the data for a ray and make related functionality
+//      available.
+////////////////////
+class Ray {
+    public:
+        ///////////////
+        // Data Members
+        //      These are public for several reasons, even though it's not
+        //      good practice.
+        //          1.) Ease of access
+        //          2.) No overhead of function calls for accessors.
+        ///////////////
+        Point o; // The origin of the ray.
+        Vector d; // The direction of the ray.
+
+        // These are scalar constants used to limit the ray to a section
+        //      along it's direction vector.
+        //      The parametric form of the ray giving the points it passes
+        //      through is as follows:
+        //          r(t) = o + td where 0 <= t <= infinity
+        //
+        //      These allow us to specify the beginning and ending points
+        //      of a section of the ray.
+        mutable float mint, maxt;
+
+        // A time stamp to allow for motion blur.
+        float time;
+
+
+        ///////////////
+        // Constructors
+        ///////////////
+
+        // No args constructor. Origin & direction are (0,0,0).
+        Ray() : mint(RAY_EPSILON), maxt(INFINITY), time(0.f) { }
+
+
+};
+
 
 /***************
  ***************
