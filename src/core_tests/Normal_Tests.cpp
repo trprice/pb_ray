@@ -203,12 +203,11 @@ TEST_F (NormalTest, AbsDotProductWithNegativeNormalValuesWorks) {
 }
 
 
-// Test the cross product of two normals.
-TEST_F (NormalTest, CrossProductDegenerateNormal) {
-    Normal a (1, 1, 1);
-    Normal b (2, 2, 2);
+TEST_F (NormalTest, CrossProductDegenerateNormalVectorFirst) {
+    Vector v (1, 1, 1);
+    Normal n (2, 2, 2);
 
-    Normal c = Cross (a, b);
+    Vector c = Cross (v, n);
 
 	EXPECT_EQ (0, c.x);
 	EXPECT_EQ (0, c.y);
@@ -216,21 +215,47 @@ TEST_F (NormalTest, CrossProductDegenerateNormal) {
 }
 
 
-// Test the cross product of two normals.
-TEST_F (NormalTest, CrossProductWorks) {
-    Normal a (-1, 1, 1);
-    Normal b (2, 2, 2);
+TEST_F (NormalTest, CrossProductWorksVectorFirst) {
+    Vector v (-1, 1, 1);
+    Normal n (2, 2, 2);
 
-    Normal c = Cross (a, b);
+    Vector c = Cross (v, n);
 
     // Check the computed values.
 	EXPECT_EQ (0, c.x);
 	EXPECT_EQ (4, c.y);
 	EXPECT_EQ (-4, c.z);
 
-    // Make sure that we aren't looing at either a or b.
-    EXPECT_NE (&c, &a);
-    EXPECT_NE (&c, &b);
+    // Make sure that we aren't looing at v.
+    EXPECT_NE (&c, &v);
+}
+
+
+TEST_F (NormalTest, CrossProductDegenerateNormalNormalFirst) {
+    Normal n (1, 1, 1);
+    Vector v (2, 2, 2);
+
+    Vector c = Cross (n, v);
+
+	EXPECT_EQ (0, c.x);
+	EXPECT_EQ (0, c.y);
+	EXPECT_EQ (0, c.z);
+}
+
+
+TEST_F (NormalTest, CrossProductWorksNormalFirst) {
+    Normal n (-1, 1, 1);
+    Vector v (2, 2, 2);
+
+    Vector c = Cross (n, v);
+
+    // Check the computed values.
+	EXPECT_EQ (0, c.x);
+	EXPECT_EQ (4, c.y);
+	EXPECT_EQ (-4, c.z);
+
+    // Make sure that we aren't looing at v.
+    EXPECT_NE (&c, &v);
 }
 
 
@@ -261,81 +286,6 @@ TEST_F (NormalTest, NormalizeWorks) {
 
     // Check that the b is not pointing to a.
     EXPECT_NE (&b, &a);
-}
-
-
-TEST_F (NormalTest, CoordinateSystemXgtY) {
-    Normal a (2, 1, 1);
-    Normal b;
-    Normal c;
-
-    CoordinateSystem (a, &b, &c);
-
-    float b_x = -1 * (1 / (sqrtf(5))),
-          b_y = 0.f,
-          b_z = -2 * (1 / (sqrtf(5)));
-
-    EXPECT_FLOAT_EQ (b_x, b.x);
-    EXPECT_FLOAT_EQ (b_y, b.y);
-    EXPECT_FLOAT_EQ (b_z, b.z);
-
-    float c_x = (a.y * b_z) - (a.z * b_y),
-          c_y = (a.z * b_x) - (a.x * b_z),
-          c_z = (a.x * b_y) - (a.y * b_x);
-
-    EXPECT_FLOAT_EQ (c_x, c.x);
-    EXPECT_FLOAT_EQ (c_y, c.y);
-    EXPECT_FLOAT_EQ (c_z, c.z);
-}
-
-
-TEST_F (NormalTest, CoordinateSystemXltY) {
-    Normal a (1, 2, 1);
-    Normal b;
-    Normal c;
-
-    CoordinateSystem (a, &b, &c);
-
-    float b_x = 0.f,
-          b_y = -1 * (1 / (sqrtf(5))),
-          b_z = -2 * (1 / (sqrtf(5)));
-
-    EXPECT_FLOAT_EQ (b_x, b.x);
-    EXPECT_FLOAT_EQ (b_y, b.y);
-    EXPECT_FLOAT_EQ (b_z, b.z);
-
-    float c_x = (a.y * b_z) - (a.z * b_y),
-          c_y = (a.z * b_x) - (a.x * b_z),
-          c_z = (a.x * b_y) - (a.y * b_x);
-
-    EXPECT_FLOAT_EQ (c_x, c.x);
-    EXPECT_FLOAT_EQ (c_y, c.y);
-    EXPECT_FLOAT_EQ (c_z, c.z);
-}
-
-
-TEST_F (NormalTest, CoordinateSystemXEqualsY) {
-    Normal a (1, 1, 2);
-    Normal b;
-    Normal c;
-
-    CoordinateSystem (a, &b, &c);
-
-    float b_x = 0.f,
-          b_y = -2 * (1 / (sqrtf(5))),
-          b_z = -1 * (1 / (sqrtf(5)));
-
-    EXPECT_FLOAT_EQ (b_x, b.x);
-    EXPECT_FLOAT_EQ (b_y, b.y);
-    EXPECT_FLOAT_EQ (b_z, b.z);
-
-    float c_x = (a.y * b_z) - (a.z * b_y),
-          c_y = (a.z * b_x) - (a.x * b_z),
-          c_z = (a.x * b_y) - (a.y * b_x);
-
-    EXPECT_FLOAT_EQ (c_x, c.x);
-    EXPECT_FLOAT_EQ (c_y, c.y);
-    EXPECT_FLOAT_EQ (c_z, c.z);
 }
 
 TEST_F (NormalTest, OperatorEqaulEqualTrue) {

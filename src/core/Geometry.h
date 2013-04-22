@@ -447,8 +447,8 @@ inline Vector::Vector (const Normal &n)
 //
 // Parameters:
 //      const Vector &v1, const Vector &v2
-//      const Normal &n1, const Normal &n2
 //      const Vector &v, const Normal &n
+//      const const Normal &n, Vector &v 
 //
 // Returns:
 //      Returns a new vector.
@@ -460,10 +460,17 @@ inline Vector Cross (const Vector &v1, const Vector v2) {
                   );
 }
 
-inline Normal Cross (const Normal &n1, const Normal n2) {
-    return Normal (((n1.y * n2.z) - (n1.z * n2.y)),
-                   ((n1.z * n2.x) - (n1.x * n2.z)),
-                   ((n1.x * n2.y) - (n1.y * n2.x))
+inline Vector Cross (const Vector &v, const Normal n) {
+    return Vector (((v.y * n.z) - (v.z * n.y)),
+                   ((v.z * n.x) - (v.x * n.z)),
+                   ((v.x * n.y) - (v.y * n.x))
+                  );
+}
+
+inline Vector Cross (const Normal &n, const Vector v) {
+    return Vector (((n.y * v.z) - (n.z * v.y)),
+                   ((n.z * v.x) - (n.x * v.z)),
+                   ((n.x * v.y) - (n.y * v.x))
                   );
 }
 
@@ -484,6 +491,10 @@ inline Normal Cross (const Normal &n1, const Normal n2) {
 ////////////////////
 inline Vector Normalize (const Vector &v) {
     return v / v.Length();
+}
+
+inline Normal Normalize (const Normal &n) {
+    return n / n.Length();
 }
 
 
