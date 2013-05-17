@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cmake -DCMAKE_C_COMPILER=/usr/share/clang/scan-build/ccc-analyzer "$@"

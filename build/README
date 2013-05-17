@@ -1,4 +1,0 @@
-This is the build directory. To build pb_ray on Linux, do the following:
-
-1.) In this directory, run `cmake ..`
-2.) In this directory, run `make`
