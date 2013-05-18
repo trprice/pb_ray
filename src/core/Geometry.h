@@ -25,7 +25,7 @@
  *
  *  Creation Date: 8/9/12
  *
- *  Last Modified: Mon 29 Apr 2013 05:06:29 PM PDT
+ *  Last Modified: Fri 17 May 2013 12:59:34 PM PDT
  */
 
 #ifndef GEOMETRY_H
@@ -44,6 +44,7 @@
 class Vector;
 class Point;
 class Normal;
+class Ray;
 
 
 /***************

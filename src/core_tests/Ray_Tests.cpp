@@ -25,7 +25,27 @@
  *
  *  Creation Date: 29-04-2013
  *
- *  Last Modified: Mon Apr 29 22:07:41 2013
+ *  Last Modified: Fri 17 May 2013 01:08:40 PM PDT
  */
 
 #include "Ray_Tests.h"
+
+
+// Tests that the constructor defaults 0s correctly
+TEST_F(RayTest, ConstructorWithoutArgsWorks) {
+    Ray a;
+
+    // Origin
+	EXPECT_EQ (0, a.o.x);
+	EXPECT_EQ (0, a.o.y);
+	EXPECT_EQ (0, a.o.z);
+
+    // Direction
+	EXPECT_EQ (0, a.d.x);
+	EXPECT_EQ (0, a.d.y);
+	EXPECT_EQ (0, a.d.z);
+
+    // Parametric Range: minimum t and maximum t
+    EXPECT_EQ (1e-3f, a.mint);
+    EXPECT_EQ (INFINITY, a.maxt);
+}
