@@ -25,7 +25,7 @@
  *
  *  Creation Date: 29-04-2013
  *
- *  Last Modified: Fri 17 May 2013 01:08:40 PM PDT
+ *  Last Modified: Mon 20 May 2013 11:07:08 PM PDT
  */
 
 #include "Ray_Tests.h"
@@ -48,4 +48,30 @@ TEST_F(RayTest, ConstructorWithoutArgsWorks) {
     // Parametric Range: minimum t and maximum t
     EXPECT_EQ (1e-3f, a.mint);
     EXPECT_EQ (INFINITY, a.maxt);
+    EXPECT_EQ (0, a.time);
+}
+
+
+TEST_F(RayTest, ConstructorWithArgsWorks) {
+    Point origin (1, 1, 1);
+    Vector direction (2, 2, 2);
+    float start = 3,
+          end = 5,
+          time = 7;
+    Ray a (origin, direction, start, end, time);
+
+    // Origin
+	EXPECT_EQ (1, a.o.x);
+	EXPECT_EQ (1, a.o.y);
+	EXPECT_EQ (1, a.o.z);
+
+    // Direction
+	EXPECT_EQ (2, a.d.x);
+	EXPECT_EQ (2, a.d.y);
+	EXPECT_EQ (2, a.d.z);
+
+    // Parametric Range: minimum t and maximum t
+    EXPECT_EQ (3, a.mint);
+    EXPECT_EQ (5, a.maxt);
+    EXPECT_EQ (7, a.time);
 }

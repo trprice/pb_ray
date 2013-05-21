@@ -25,7 +25,7 @@
  *
  *  Creation Date: 8/9/12
  *
- *  Last Modified: Fri 17 May 2013 12:59:34 PM PDT
+ *  Last Modified: Mon 20 May 2013 11:03:40 PM PDT
  */
 
 #ifndef GEOMETRY_H
@@ -463,7 +463,10 @@ class Ray {
         // No args constructor. Origin & direction are (0,0,0).
         Ray() : mint(RAY_EPSILON), maxt(INFINITY), time(0.f) { }
 
-
+        // Constructor with args
+        Ray (const Point &origin, const Vector &direction,
+             float start = RAY_EPSILON, float end = INFINITY, float t = 0.f)
+            : o(origin), d(direction), mint(start), maxt(end), time(t) { }
 };
 
 
