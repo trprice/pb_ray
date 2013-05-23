@@ -25,7 +25,7 @@
  *
  *  Creation Date: 8/9/12
  *
- *  Last Modified: Mon 20 May 2013 11:03:40 PM PDT
+ *  Last Modified: Wed 22 May 2013 05:27:05 PM PDT
  */
 
 #ifndef GEOMETRY_H
@@ -467,6 +467,14 @@ class Ray {
         Ray (const Point &origin, const Vector &direction,
              float start = RAY_EPSILON, float end = INFINITY, float t = 0.f)
             : o(origin), d(direction), mint(start), maxt(end), time(t) { }
+
+        
+        ///////////////
+        // Operators
+        ///////////////
+
+        // Find the point at a particular position along the ray.
+        Point operator()(float t) const { return o + d * t; }
 };
 
 
