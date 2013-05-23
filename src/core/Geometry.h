@@ -25,7 +25,7 @@
  *
  *  Creation Date: 8/9/12
  *
- *  Last Modified: Wed 22 May 2013 05:27:05 PM PDT
+ *  Last Modified: Wed 22 May 2013 10:53:34 PM PDT
  */
 
 #ifndef GEOMETRY_H
@@ -45,6 +45,7 @@ class Vector;
 class Point;
 class Normal;
 class Ray;
+class RayDifferential;
 
 
 /***************
@@ -475,6 +476,39 @@ class Ray {
 
         // Find the point at a particular position along the ray.
         Point operator()(float t) const { return o + d * t; }
+};
+
+
+////////////////////
+// Class: RayDifferential
+//
+// Purpose:
+//      Encapsulate the data for two extra rays, offset by one pixel in x and y
+//      directions. This will allow for Textures to average the area to
+//      anti-alias over.
+//
+// Inherits From: Ray
+////////////////////
+class RayDifferential : public Ray {
+    public:
+
+        ///////////////
+        // Data Members
+        //      These are public for several reasons, even though it's not
+        //      good practice.
+        //          1.) Ease of access
+        //          2.) No overhead of function calls for accessors.
+        ///////////////
+        bool hasDifferentials;
+
+        ///////////////
+        // Constructors
+        ///////////////
+
+        RayDifferential() { hasDifferentials = false; }
+
+
+
 };
 
 
