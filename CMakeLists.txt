@@ -79,6 +79,26 @@ ExternalProject_Add(
 ExternalProject_Get_Property(googletest source_dir)
 include_directories("${source_dir}/include")
 
+ExternalProject_Add(
+    googlemock
+    SVN_REPOSITORY http://googlemock.googlecode.com/svn/trunk/
+    TIMEOUT 10
+    # Force separate output paths for debug and release builds to allow easy
+    # identification of correct lib in subsequent TARGET_LINK_LIBRARIES commands
+    CMAKE_ARGS -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG:PATH=DebugLibs
+               -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE:PATH=ReleaseLibs
+               -Dgtest_force_shared_crt=ON
+    # Disable install step
+    INSTALL_COMMAND ""
+    # Wrap download, configure and build steps in a script to log output
+    LOG_DOWNLOAD ON
+    LOG_CONFIGURE ON
+    LOG_BUILD ON)
+
+# Setup the gtest include directories.
+ExternalProject_Get_Property(googlemock source_dir)
+include_directories("${source_dir}/include")
+
 # Setup core
 set (CORE_DIR ${PROJECT_SOURCE_DIR}/core)
 include_directories("${CORE_DIR}")

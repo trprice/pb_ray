@@ -25,7 +25,7 @@
  *
  *  Creation Date: 8/9/12
  *
- *  Last Modified: Wed 22 May 2013 10:53:34 PM PDT
+ *  Last Modified: Thu May 30 22:37:15 2013
  */
 
 #ifndef GEOMETRY_H
@@ -500,6 +500,7 @@ class RayDifferential : public Ray {
         //          2.) No overhead of function calls for accessors.
         ///////////////
         bool hasDifferentials;
+        Ray rx, ry;
 
         ///////////////
         // Constructors
