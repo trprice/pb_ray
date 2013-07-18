@@ -25,7 +25,7 @@
  *
  *  Creation Date: 8/9/12
  *
- *  Last Modified: Thu May 30 22:37:15 2013
+ *  Last Modified: Wed 17 Jul 2013 05:43:07 PM PDT
  */
 
 #ifndef GEOMETRY_H
@@ -508,8 +508,14 @@ class RayDifferential : public Ray {
 
         RayDifferential() { hasDifferentials = false; }
 
+        RayDifferential(const Point &org, const Vector &dir)
+                : Ray(org, dir) {
+            hasDifferentials = false;
+        }
 
-
+        explicit RayDifferential(const Ray &ray) : Ray (ray) {
+            hasDifferentials = false;
+        }
 };
 
 

@@ -25,7 +25,7 @@
  *
  *  Creation Date: 30-05-2013
  *
- *  Last Modified: Thu May 30 22:41:13 2013
+ *  Last Modified: Wed 17 Jul 2013 05:46:12 PM PDT
  */
 
 #include "RayDifferential_Tests.h"
@@ -36,6 +36,42 @@ TEST_F(RayDifferentialTest, ConstructorWithoutArgsWorks) {
     EXPECT_EQ (false, rd.hasDifferentials);
 
     // What about the rays?
-    //      We've tested that the constructors of Ray, Point, and Vector work.
-    //      Why would we need to test the values of everything in these classes again?
+    //      We've tested that the constructors of Ray, Point, and Vector work,
+    //      so don't bother testing those. We can get away with just testing
+    //      that one of the values of one member of one ray is init'd. If it
+    //      is, the rest will have worked correctly as proven by the other
+    //      unit tests.
+    
+    // Check that the main ray was initialized.
+	EXPECT_EQ (0, rd.o.x);
+    
+   
+    // Check that one of the additional rays was initialized. 
+	EXPECT_EQ (0, rd.rx.o.x);
+}
+
+TEST_F(RayDifferentialTest, ConstructorWithRayConstructorParametersWorks) {
+    Point origin (1, 1, 1);
+    Vector direction (2, 2, 2);
+
+    RayDifferential rd (origin, direction);
+
+
+    EXPECT_EQ (false, rd.hasDifferentials);
+
+    // Check that the origin was propogated through the Ray constructor.
+    EXPECT_EQ (1, rd.o.x);
+
+    // Check that the direction was propogated through the Ray constructor.
+    EXPECT_EQ (2, rd.d.x);
+}
+
+TEST_F(RayDifferentialTest, ConstructorWithRayWorks) {
+    Point origin (1, 1, 1);
+    Vector direction (2, 2, 2);
+    Ray ray (origin, direction);
+
+    RayDifferential rd (ray);
+
+    EXPECT_EQ (false, rd.hasDifferentials);
 }
