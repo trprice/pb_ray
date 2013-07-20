@@ -25,7 +25,7 @@
  *
  *  Creation Date: 8/9/12
  *
- *  Last Modified: Wed 17 Jul 2013 05:43:07 PM PDT
+ *  Last Modified: Fri 19 Jul 2013 02:29:11 PM PDT
  */
 
 #ifndef GEOMETRY_H
@@ -517,6 +517,38 @@ class RayDifferential : public Ray {
             hasDifferentials = false;
         }
 };
+
+
+
+////////////////////
+// Class: BBox
+//
+// Purpose:
+//      Define a bounding box by providing minimum and maximum points. These
+//      two points are opposite each other.
+//
+//      The bounding box will be used to bound the area around an object such
+//      that, if a ray doesn't pass through the box (which is likely easier to
+//      detect a collision with than to fully process the object), we don't have
+//      to process the object.
+////////////////////
+class BBox {
+    public:
+
+        ///////////////
+        // Data Members
+        //      These are public for several reasons, even though it's not
+        //      good practice.
+        //          1.) Ease of access
+        //          2.) No overhead of function calls for accessors.
+        ///////////////
+        
+        ///////////////
+        // Constructors
+        ///////////////
+
+};
+
 
 
 /***************
