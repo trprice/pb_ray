@@ -25,12 +25,13 @@
  *
  *  Creation Date: 8/9/12
  *
- *  Last Modified: Fri 19 Jul 2013 02:29:11 PM PDT
+ *  Last Modified: Mon 22 Jul 2013 04:47:32 PM PDT
  */
 
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
+#include "pb_ray.h"
 #include "assert.h"
 #include "math.h"
 
