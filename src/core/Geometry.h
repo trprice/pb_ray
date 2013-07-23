@@ -25,7 +25,7 @@
  *
  *  Creation Date: 8/9/12
  *
- *  Last Modified: Mon 22 Jul 2013 04:47:32 PM PDT
+ *  Last Modified: Mon 22 Jul 2013 05:44:35 PM PDT
  */
 
 #ifndef GEOMETRY_H
@@ -47,6 +47,7 @@ class Point;
 class Normal;
 class Ray;
 class RayDifferential;
+class BBox;
 
 
 /***************
@@ -543,11 +544,16 @@ class BBox {
         //          1.) Ease of access
         //          2.) No overhead of function calls for accessors.
         ///////////////
+        Point pMin, pMax;
+        
         
         ///////////////
         // Constructors
         ///////////////
-
+        BBox() {
+            pMin = Point (INFINITY, INFINITY, INFINITY);
+            pMax = Point (-INFINITY, -INFINITY, -INFINITY);
+        }
 };
 
 

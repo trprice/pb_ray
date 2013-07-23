@@ -25,7 +25,17 @@
  *
  *  Creation Date: 19-07-2013
  *
- *  Last Modified: Fri 19 Jul 2013 05:51:08 PM PDT
+ *  Last Modified: Mon 22 Jul 2013 05:49:37 PM PDT
  */
 
 #include "BBox_Tests.h"
+
+// Tests that the constructor defaults 0s correctly
+TEST_F(BBoxTest, ConstructorWithoutArgsWorks) {
+    BBox b;
+
+    // Since we know the Point constructor works, just test one value of each
+    // point so that we know the values propogated through correctly.
+    EXPECT_EQ (INFINITY, b.pMin.x);
+    EXPECT_EQ (-INFINITY, b.pMax.x);
+}
