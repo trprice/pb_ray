@@ -25,7 +25,7 @@
  *
  *  Creation Date: 8/9/12
  *
- *  Last Modified: Mon 22 Jul 2013 05:44:35 PM PDT
+ *  Last Modified: Tue 23 Jul 2013 05:43:28 PM PDT
  */
 
 #ifndef GEOMETRY_H
@@ -553,6 +553,27 @@ class BBox {
         BBox() {
             pMin = Point (INFINITY, INFINITY, INFINITY);
             pMax = Point (-INFINITY, -INFINITY, -INFINITY);
+        }
+
+        // Construct a bounding box enclosing a single point.
+        BBox (const Point &p) : pMin(p), pMax(p) { }
+
+        // Construct a bounding box from two points.
+        BBox (const Point &p1, const Point &p2) {
+            // TRP - These will incorrectly swap fields of a point.
+            //       For example, if p1.x and p1.z < p2.x and p2.z
+            //          but p2.y < p1.y, pMin = (p1.x, p2.y, p1.z)
+            //
+            //       This wouldn't be a valid use of BBox since it
+            //       wouldn't define a box, but what *should*
+            //       happen?
+            pMin = Point (fminf (p1.x, p2.x),
+                          fminf (p1.y, p2.y),
+                          fminf (p1.z, p1.z));
+
+            pMax = Point (fmaxf (p1.x, p2.x),
+                          fmaxf (p1.y, p2.y),
+                          fmaxf (p1.z, p1.z));
         }
 };
 
