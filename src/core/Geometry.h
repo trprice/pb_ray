@@ -25,7 +25,7 @@
  *
  *  Creation Date: 8/9/12
  *
- *  Last Modified: Tue 23 Jul 2013 05:43:28 PM PDT
+ *  Last Modified: Thu 25 Jul 2013 05:42:18 PM PDT
  */
 
 #ifndef GEOMETRY_H
@@ -574,6 +574,21 @@ class BBox {
             pMax = Point (fmaxf (p1.x, p2.x),
                           fmaxf (p1.y, p2.y),
                           fmaxf (p1.z, p1.z));
+        }
+        
+        
+        ///////////////
+        // Methods
+        ///////////////
+        friend BBox Union (const BBox &b, const Point &p);
+        friend BBox Union (const BBox &b1, const BBox &b2);
+
+        bool Overlaps (const BBox &b) const {
+            bool x = (pMax.x >= b.pMin.x) && (pMin.x <= b.pMax.x);
+            bool y = (pMax.y >= b.pMin.y) && (pMin.y <= b.pMax.y);
+            bool z = (pMax.x >= b.pMin.x) && (pMin.x <= b.pMax.x);
+
+            return (x && y && z);
         }
 };
 

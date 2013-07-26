@@ -25,7 +25,7 @@
  *
  *  Creation Date: 19-07-2013
  *
- *  Last Modified: Tue 23 Jul 2013 05:43:30 PM PDT
+ *  Last Modified: Thu 25 Jul 2013 05:52:30 PM PDT
  */
 
 #include "BBox_Tests.h"
@@ -98,7 +98,41 @@ TEST_F(BBoxTest, ConstructorTwoSwappedNonDiagonalPointsWorks) {
     BBox b (p2, p1);
 
    
-    // Point 2 in this case should likely be considered the min point.
-    EXPECT_EQ (p2.y, b.pMin.y);
-    EXPECT_EQ (p1.y, b.pMax.y);
+    // Which one of the following expectations is true:
+    //  1.) One point, as a whole, will be considered the min or max point.
+    //  2.) The bounding box should surround the *whole* area defined by the
+    //      points. This means that whichever component of either point is
+    //      the greatest is the maximum.
+    //  
+    //EXPECT_EQ (p2.y, b.pMin.y);
+    //EXPECT_EQ (p1.y, b.pMax.y);
+    EXPECT_EQ (p1.y, b.pMin.y);
+    EXPECT_EQ (p2.y, b.pMax.y);
+}
+
+
+// Test the happy path case.
+TEST_F(BBoxTest, UnionWithBoxAndPointWorks) {
+    BBox b(Point (1, 1, 1), Point (2, 2, 2));
+    Point p (3, 3, 3);
+
+    BBox r = Union(b, p);
+
+    EXPECT_EQ (1, r.pMin.y);
+    EXPECT_EQ (3, r.pMax.y);
+}
+
+
+TEST_F(BBoxTest, UnionWithTwoBoxesWorks) {
+    BBox b1(Point (1, 1, 1), Point (2, 2, 2));
+    BBox b2(Point (2, 2, 2), Point (3, 3, 3));
+
+    BBox r = Union (b1, b2);
+
+    EXPECT_EQ (1, r.pMin.y);
+    EXPECT_EQ (3, r.pMax.y);
+}
+
+
+TEST_F(BBoxTest, OverlapsWorks) {
 }
