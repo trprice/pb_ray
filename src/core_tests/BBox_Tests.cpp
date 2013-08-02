@@ -25,7 +25,7 @@
  *
  *  Creation Date: 19-07-2013
  *
- *  Last Modified: Thu 25 Jul 2013 05:52:30 PM PDT
+ *  Last Modified: Thu 01 Aug 2013 05:33:53 PM PDT
  */
 
 #include "BBox_Tests.h"
@@ -134,5 +134,31 @@ TEST_F(BBoxTest, UnionWithTwoBoxesWorks) {
 }
 
 
-TEST_F(BBoxTest, OverlapsWorks) {
+TEST_F(BBoxTest, OverlapsDetectsOverlap) {
+    BBox b1(Point (1, 1, 1), Point (2, 2, 2));
+    BBox b2(Point (2, 2, 2), Point (3, 3, 3));
+
+    bool result = b1.Overlaps(b2);
+
+    EXPECT_TRUE (result);
+}
+
+
+TEST_F(BBoxTest, OverlapsDetectsNonOverlap) {
+    BBox b1(Point (1, 1, 1), Point (2, 2, 2));
+    BBox b2(Point (3, 3, 3), Point (4, 4, 4));
+
+    bool result = b1.Overlaps(b2);
+
+    EXPECT_FALSE (result);
+}
+
+
+TEST_F(BBoxTest, OverlapsDetectsNonOverlapOnlyOneVertexOff) {
+    BBox b1(Point (1, 1, 1), Point (2, 2, 2));
+    BBox b2(Point (3, 2, 2), Point (4, 4, 4));
+
+    bool result = b1.Overlaps(b2);
+
+    EXPECT_FALSE (result);
 }
