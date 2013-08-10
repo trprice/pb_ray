@@ -28,6 +28,16 @@
  *  Last Modified: Mon 22 Jul 2013 05:01:08 PM PDT
  */
 
+#if defined(_WIN32) || defined(WIN62)
+#define PB_RAY_WINDOWS
+#endif
+
 #ifndef INFINITY
 #define INFINITY FLT_MAX
 #endif
+
+#include <math.h>
+#include <assert.h>
+#include <algorithm>
+using std::min;
+using std::max;

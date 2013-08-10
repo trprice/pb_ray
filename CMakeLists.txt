@@ -3,7 +3,12 @@ cmake_minimum_required (VERSION 2.6)
 project (pb_ray)
 
 # Set the initial C and CXX Flags and the toolchain
-set (CMAKE_CXX_FLAGS "-Wall -Wextra")
+if (WIN32)
+    #set (CMAKE_CXX_FLAGS "-Wall")
+else (WIN32)
+    set (CMAKE_CXX_FLAGS "-Wall -Wextra")
+endif (WIN32)
+
 set (_CMAKE_TOOLCHAIN_PREFIX llvm-)
 
     
@@ -59,10 +64,33 @@ SET_DIRECTORY_PROPERTIES(PROPERTIES EP_PREFIX ${THIRD_PARTY_DIR})
 
 #   See http://stackoverflow.com/questions/9689183/cmake-googletest/9695234#9695234
 #   for an example
+
+# Create patch file for gtest with MSVC 2012
+if(MSVC_VERSION EQUAL 1700)
+  file(WRITE gtest.patch "Index: cmake/internal_utils.cmake\n")
+  file(APPEND gtest.patch "===================================================================\n")
+  file(APPEND gtest.patch "--- cmake/internal_utils.cmake   (revision 660)\n")
+  file(APPEND gtest.patch "+++ cmake/internal_utils.cmake\n")
+  file(APPEND gtest.patch "@@ -66,6 +66,9 @@\n")
+  file(APPEND gtest.patch "       # Resolved overload was found by argument-dependent lookup.\n")
+  file(APPEND gtest.patch "       set(cxx_base_flags \"\${cxx_base_flags} -wd4675\")\n")
+  file(APPEND gtest.patch "     endif()\n")
+  file(APPEND gtest.patch "+    if (MSVC_VERSION EQUAL 1700)\n")
+  file(APPEND gtest.patch "+      set(cxx_base_flags \"\${cxx_base_flags} -D_VARIADIC_MAX=10\")\n")
+  file(APPEND gtest.patch "+    endif ()\n")
+  file(APPEND gtest.patch "     set(cxx_base_flags \"\${cxx_base_flags} -D_UNICODE -DUNICODE -DWIN32 -D_WIN32\")\n")
+  file(APPEND gtest.patch "     set(cxx_base_flags \"\${cxx_base_flags} -DSTRICT -DWIN32_LEAN_AND_MEAN\")\n")
+  file(APPEND gtest.patch "     set(cxx_exception_flags \"-EHsc -D_HAS_EXCEPTIONS=1\")\n")
+else()
+  file(WRITE gtest.patch "")
+endif()
+
 ExternalProject_Add(
     googletest
     SVN_REPOSITORY http://googletest.googlecode.com/svn/trunk/
+    SVN_REVISION -r 660
     TIMEOUT 10
+    PATCH_COMMAND svn patch ${CMAKE_SOURCE_DIR}/gtest.patch ${CMAKE_BINARY_DIR}/third_party/src/googletest
     # Force separate output paths for debug and release builds to allow easy
     # identification of correct lib in subsequent TARGET_LINK_LIBRARIES commands
     CMAKE_ARGS -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG:PATH=DebugLibs
@@ -78,6 +106,11 @@ ExternalProject_Add(
 # Setup the gtest include directories.
 ExternalProject_Get_Property(googletest source_dir)
 include_directories("${source_dir}/include")
+
+# Add compiler flag for MSVC 2012
+if(MSVC_VERSION EQUAL 1700)
+  add_definitions(-D_VARIADIC_MAX=10)
+endif()
 
 ExternalProject_Add(
     googlemock

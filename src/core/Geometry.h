@@ -32,8 +32,6 @@
 #define GEOMETRY_H
 
 #include "pb_ray.h"
-#include "assert.h"
-#include "math.h"
 
 /***************
  ***************
@@ -567,13 +565,13 @@ class BBox {
             //       This wouldn't be a valid use of BBox since it
             //       wouldn't define a box, but what *should*
             //       happen?
-            pMin = Point (fminf (p1.x, p2.x),
-                          fminf (p1.y, p2.y),
-                          fminf (p1.z, p1.z));
+            pMin = Point (min (p1.x, p2.x),
+                          min (p1.y, p2.y),
+                          min (p1.z, p1.z));
 
-            pMax = Point (fmaxf (p1.x, p2.x),
-                          fmaxf (p1.y, p2.y),
-                          fmaxf (p1.z, p1.z));
+            pMax = Point (max (p1.x, p2.x),
+                          max (p1.y, p2.y),
+                          max (p1.z, p1.z));
         }
         
         
