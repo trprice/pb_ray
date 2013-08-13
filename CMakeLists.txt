@@ -116,6 +116,7 @@ ExternalProject_Add(
     googlemock
     SVN_REPOSITORY http://googlemock.googlecode.com/svn/trunk/
     TIMEOUT 10
+    PATCH_COMMAND svn patch ${CMAKE_SOURCE_DIR}/gtest.patch ${CMAKE_BINARY_DIR}/third_party/src/googlemock/gtest
     # Force separate output paths for debug and release builds to allow easy
     # identification of correct lib in subsequent TARGET_LINK_LIBRARIES commands
     CMAKE_ARGS -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG:PATH=DebugLibs
