@@ -162,3 +162,65 @@ TEST_F(BBoxTest, OverlapsDetectsNonOverlapOnlyOneVertexOff) {
 
     EXPECT_FALSE (result);
 }
+
+
+TEST_F(BBoxTest, InsideDetectsPointInside) {
+    BBox b (Point (1, 1, 1), Point (3, 3, 3));
+    Point p (2, 2, 2);
+
+    bool result = b.Inside (p);
+
+    EXPECT_TRUE (result);
+}
+
+
+TEST_F(BBoxTest, InsideDetectsPointOutside) {
+    BBox b (Point (1, 1, 1), Point (3, 3, 3));
+    Point p (4, 4, 4);
+
+    bool result = b.Inside (p);
+
+    EXPECT_FALSE (result);
+}
+
+
+TEST_F(BBoxTest, InsideDetectsPointOnBorderAsInside) {
+    BBox b (Point (1, 1, 1), Point (3, 3, 3));
+    Point p (3, 3, 3);
+
+    bool result = b.Inside (p);
+
+    EXPECT_TRUE (result);
+}
+
+
+TEST_F(BBoxTest, ExpandByPositiveValueWorks) {
+    BBox b (Point (2, 2, 2), Point (3, 3, 3));
+    float delta = 1.0;
+
+    b.Expand (delta);
+
+    EXPECT_EQ (1, b.pMin.x);
+    EXPECT_EQ (1, b.pMin.y);
+    EXPECT_EQ (1, b.pMin.z);
+
+    EXPECT_EQ (4, b.pMax.x);
+    EXPECT_EQ (4, b.pMax.y);
+    EXPECT_EQ (4, b.pMax.z);
+}
+
+
+TEST_F(BBoxTest, ExpandByNegativeValueWorks) {
+    BBox b (Point (1, 1, 1), Point (4, 4, 4));
+    float delta = -1.0;
+
+    b.Expand (delta);
+
+    EXPECT_EQ (2, b.pMin.x);
+    EXPECT_EQ (2, b.pMin.y);
+    EXPECT_EQ (2, b.pMin.z);
+
+    EXPECT_EQ (3, b.pMax.x);
+    EXPECT_EQ (3, b.pMax.y);
+    EXPECT_EQ (3, b.pMax.z);
+}

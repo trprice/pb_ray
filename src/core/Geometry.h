@@ -232,7 +232,7 @@ class Point {
 
         // Get the Vector between two points by subtracting ('-').
         Vector operator- (const Point &p) const {
-            return Vector (x + p.x, y + p.y, z + p.z);
+            return Vector (x - p.x, y - p.y, z - p.z);
         }
 
         // Operators for adding and subracting Points from
@@ -567,11 +567,11 @@ class BBox {
             //       happen?
             pMin = Point (min (p1.x, p2.x),
                           min (p1.y, p2.y),
-                          min (p1.z, p1.z));
+                          min (p1.z, p2.z));
 
             pMax = Point (max (p1.x, p2.x),
                           max (p1.y, p2.y),
-                          max (p1.z, p1.z));
+                          max (p1.z, p2.z));
         }
         
         
@@ -587,6 +587,18 @@ class BBox {
             bool z = (pMax.x >= b.pMin.x) && (pMin.x <= b.pMax.x);
 
             return (x && y && z);
+        }
+
+        bool Inside (const Point &pt) const {
+            return (pt.x >= pMin.x && pt.x <= pMax.x &&
+                    pt.y >= pMin.y && pt.y <= pMax.y &&
+                    pt.z >= pMin.z && pt.z <= pMax.z);
+        }
+
+        // Expand in both directions
+        void Expand (float delta) {
+            pMin -= Vector (delta, delta, delta);
+            pMax += Vector (delta, delta, delta);
         }
 };
 
