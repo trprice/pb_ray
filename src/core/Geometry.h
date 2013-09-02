@@ -600,6 +600,28 @@ class BBox {
             pMin -= Vector (delta, delta, delta);
             pMax += Vector (delta, delta, delta);
         }
+
+		float SurfaceArea() const {
+			Vector d = pMax - pMin;
+			return 2.f * (d.x * d.y + d.x * d.z + d.y * d.z);
+		}
+
+		float Volume() const {
+			Vector d = pMax - pMin;
+			return d.x * d.y * d.z;
+		}
+
+		// Return which of the axes is the longest.
+		int MaximumExtent() const {
+			Vector diag = pMax - pMin;
+
+			if (diag.x > diag.y && diag.x > diag.z)
+				return 0;
+			else if (diag.y > diag.z)
+				return 1;
+			else
+				return 2;
+		}
 };
 
 

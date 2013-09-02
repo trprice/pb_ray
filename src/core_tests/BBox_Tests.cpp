@@ -224,3 +224,66 @@ TEST_F(BBoxTest, ExpandByNegativeValueWorks) {
     EXPECT_EQ (3, b.pMax.y);
     EXPECT_EQ (3, b.pMax.z);
 }
+
+
+TEST_F(BBoxTest, SurfaceAreaWorks) {
+	BBox b (Point (0, 0, 0), Point (2, 2, 2));
+
+	float area = b.SurfaceArea();
+
+	EXPECT_FLOAT_EQ (24.f, area);
+}
+
+
+TEST_F(BBoxTest, SurfaceAreaDegenerateBBoxWorks) {
+	BBox b (Point(0, 0, 0), Point (0, 0, 0));
+
+	float area = b.SurfaceArea();
+
+	EXPECT_FLOAT_EQ (0.f, area);
+}
+
+
+TEST_F(BBoxTest, VolumeWorks) {
+	BBox b (Point (0, 0, 0), Point (2, 2, 2));
+
+	float area = b.Volume();
+
+	EXPECT_FLOAT_EQ (8.f, area);
+}
+
+
+TEST_F(BBoxTest, VolumeDegenerateBBoxWorks) {
+	BBox b (Point (0, 0, 0), Point (0, 0, 0));
+
+	float area = b.Volume();
+
+	EXPECT_FLOAT_EQ (0.f, area);
+}
+
+
+TEST_F(BBoxTest, MaximumExtentWorks) {
+	BBox b (Point (0, 0, 0), Point (1, 2, 3));
+
+	int longest_axis = b.MaximumExtent();
+
+	EXPECT_EQ (2, longest_axis);
+}
+
+
+TEST_F(BBoxTest, MaximumExtentDegenerateBBoxWorks) {
+	BBox b (Point (0, 0, 0), Point (0, 0, 0));
+
+	int longest_axis = b.MaximumExtent();
+
+	EXPECT_EQ (2, longest_axis);
+}
+
+
+TEST_F(BBoxTest, MaximumExtentNegativeAxisWorks) {
+	BBox b (Point (0, 0, 0), Point (-3, 0, 1));
+
+	int longest_axis = b.MaximumExtent();
+
+	EXPECT_EQ (0, longest_axis);
+}
