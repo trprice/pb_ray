@@ -573,6 +573,16 @@ class BBox {
                           max (p1.y, p2.y),
                           max (p1.z, p2.z));
         }
+
+
+		///////////////
+        // Operators
+        ///////////////
+
+		// These are defined below.
+		const Point &operator[](int i) const;
+		Point &operator[](int i);
+
         
         
         ///////////////
@@ -622,6 +632,20 @@ class BBox {
 			else
 				return 2;
 		}
+
+		Point Lerp (float tx, float ty, float tz) const {
+			return Point (::Lerp(tx, pMin.x, pMax.x),
+						  ::Lerp(ty, pMin.y, pMax.y),
+						  ::Lerp(tz, pMin.z, pMax.z));
+		}
+
+        Vector Offset (const Point &p) const {
+            return Vector ((p.x - pMin.x) / (pMax.x - pMin.x),
+                           (p.y - pMin.y) / (pMax.x - pMin.y),
+                           (p.z - pMin.z) / (pMax.z - pMin.z));
+        }
+
+        void BoundingSphere (Point*, float*) const;
 };
 
 
@@ -669,6 +693,22 @@ inline Vector::Vector (const Point &p)
 
 inline Vector::Vector (const Normal &n)
     : x(n.x), y(n.y), z(n.z) {
+}
+
+
+/***************
+ ***************
+ * BBox Operators
+ ***************
+ ***************/
+inline const Point &BBox::operator[](int i) const {
+    assert (i ==- 0 || i == 1);
+    return (&pMin)[i];
+}
+
+inline Point &BBox::operator[](int i) {
+    assert (i ==- 0 || i == 1);
+    return (&pMin)[i];
 }
 
 

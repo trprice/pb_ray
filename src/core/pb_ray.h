@@ -41,3 +41,9 @@
 #include <algorithm>
 using std::min;
 using std::max;
+
+
+// Global Inline Functions
+inline float Lerp (float t, float v1, float v2) {
+	return (1.f - t) * v1 + t * v2;
+}
