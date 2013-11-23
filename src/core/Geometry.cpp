@@ -62,3 +62,8 @@ BBox Union (const BBox &b1, const BBox &b2) {
 
     return ret;
 }
+
+void BBox::BoundingSphere (Point *c, float *rad) const {
+    *c = pMin * .5f + pMax * .5f;
+    *rad = Inside (*c) ? Distance (*c, pMax) : 0.f;
+}
