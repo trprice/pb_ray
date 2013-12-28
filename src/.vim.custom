@@ -4,8 +4,3 @@ let g:syntastic_cpp_compiler_options =  '-I ~/development/pb_ray/src/core -I ../
 autocmd BufNewFile *.c,*.cpp,*.h so ./c_cxx_h_header.txt
 autocmd BufNewFile *.c,*.cpp,*.h exe "1," . 29 . "g/File Name:/s//File Name: " .expand("%")
 autocmd BufNewFile *.c,*.cpp,*.h exe "1," . 29 . "g/Creation Date:/s//Creation Date: " .strftime("%d-%m-%Y")
-
-"Update the modification time in the header.
-autocmd BufWritePre,FileWritePre *.c,*.cpp,*.h execute "normal ma"
-autocmd BufWritePre,FileWritePre *.c,*.cpp,*.h exe "1," . 29 . "g/Last Modified:/s/Last Modified:.*/Last Modified: " .strftime("%c")
-autocmd BufWritePre,FileWritePre *.c,*.cpp,*.h execute "normal `a"
