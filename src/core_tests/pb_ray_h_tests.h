@@ -19,26 +19,26 @@
  *	If not, see <http://www.opensource.org/licenses/MIT>
  *
  *
- *  File Name: BBox_Tests.h
+ *  File Name: pb_ray_h_tests.h
  *
- *  Purpose: Hold the test class for the BBox class.
+ *  Purpose: Hold the test class for inline functions in pb_ray.h
  *
- *  Creation Date: 19-07-2013
+ *  Creation Date: 27-12-2013
  */
 
-#include "Geometry.h"
+#include "pb_ray.h"
 #include "gtest/gtest.h"
 
-class BBoxTest : public ::testing::Test {
+class PBRayHTest : public ::testing::Test {
  protected:
   // You can remove any or all of the following functions if its body
   // is empty.
 
-  BBoxTest() {
+  PBRayHTest() {
     // You can do set-up work for each test here.
   }
 
-  virtual ~BBoxTest() {
+  virtual ~PBRayHTest() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
 
