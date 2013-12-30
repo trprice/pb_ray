@@ -640,6 +640,10 @@ class BBox {
 		}
 
         Vector Offset (const Point &p) const {
+            // A degenerate bounding box (by my definition where the corner
+            // points are the same) will crash this.
+            // - My assumption is that the book presumes that there will never
+            //   be a degenerate bounding box.
             return Vector ((p.x - pMin.x) / (pMax.x - pMin.x),
                            (p.y - pMin.y) / (pMax.x - pMin.y),
                            (p.z - pMin.z) / (pMax.z - pMin.z));

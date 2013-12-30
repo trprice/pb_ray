@@ -287,3 +287,59 @@ TEST_F(BBoxTest, MaximumExtentNegativeAxisWorks) {
 
 	EXPECT_EQ (0, longest_axis);
 }
+
+// Lerp Tests
+TEST_F(BBoxTest, LerpZeroOneWorks) {
+    BBox b (Point (0, 0, 0), Point (1, 1, 1));
+
+    Point p = b.Lerp (1, 1, 1);
+
+    EXPECT_EQ (1, p.x);
+    EXPECT_EQ (1, p.y);
+    EXPECT_EQ (1, p.z);
+}
+
+TEST_F(BBoxTest, LerpMidwayWorks) {
+    BBox b (Point (0, 0, 0), Point (1, 1, 1));
+
+    Point p = b.Lerp (.5, .5, .5);
+
+    EXPECT_EQ (.5, p.x);
+    EXPECT_EQ (.5, p.y);
+    EXPECT_EQ (.5, p.z);
+}
+
+TEST_F(BBoxTest, LerpDegenerateWorks) {
+    BBox b (Point (0, 0, 0), Point (0, 0, 0));
+
+    Point p = b.Lerp (1, 1, 1);
+
+    EXPECT_EQ (0, p.x);
+    EXPECT_EQ (0, p.y);
+    EXPECT_EQ (0, p.z);
+}
+
+// Offset Tests
+TEST_F(BBoxTest, OffsetMidwayWorks) {
+    BBox b (Point (0, 0, 0), Point (2, 2, 2));
+
+    Vector v = b.Offset (Point (1, 1, 1));
+
+    EXPECT_EQ (.5, v.x);
+    EXPECT_EQ (.5, v.y);
+    EXPECT_EQ (.5, v.z);
+}
+
+// This test crashes because Offset has no
+// divide by zero checking.
+TEST_F(BBoxTest, OffsetDegenerateWorks) {
+    BBox b (Point (0, 0, 0), Point (0, 0, 0));
+
+    Vector v = b.Offset (Point (1, 1, 1));
+
+    EXPECT_EQ (.5, v.x);
+    EXPECT_EQ (.5, v.y);
+    EXPECT_EQ (.5, v.z);
+}
+
+// Bounding Sphere Tests
