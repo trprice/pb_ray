@@ -330,6 +330,26 @@ TEST_F(BBoxTest, OffsetMidwayWorks) {
     EXPECT_EQ (.5, v.z);
 }
 
+TEST_F(BBoxTest, OffsetCornerWorks) {
+    BBox b (Point (0, 0, 0), Point (2, 2, 2));
+
+    Vector v = b.Offset (Point (2, 2, 2));
+
+    EXPECT_EQ (1, v.x);
+    EXPECT_EQ (1, v.y);
+    EXPECT_EQ (1, v.z);
+}
+
+TEST_F(BBoxTest, OffsetOutsideOfTheBoxWorks) {
+    BBox b (Point (0, 0, 0), Point (2, 2, 2));
+
+    Vector v = b.Offset (Point (3, 3, 3));
+
+    EXPECT_EQ (1.5, v.x);
+    EXPECT_EQ (1.5, v.y);
+    EXPECT_EQ (1.5, v.z);
+}
+
 // This test crashes because Offset has no
 // divide by zero checking.
 TEST_F(BBoxTest, OffsetDegenerateWorks) {
@@ -343,3 +363,49 @@ TEST_F(BBoxTest, OffsetDegenerateWorks) {
 }
 
 // Bounding Sphere Tests
+TEST_F(BBoxTest, BoundingSphereWorks) {
+    BBox b (Point (0, 0, 0), Point (1, 1, 1));
+
+    Point center;
+    float radius;
+
+    b.BoundingSphere (&center, &radius);
+
+    EXPECT_EQ (.5, center.x);
+    EXPECT_EQ (.5, center.y);
+    EXPECT_EQ (.5, center.z);
+
+    EXPECT_EQ (sqrtf(.75), radius);
+}
+
+TEST_F(BBoxTest, BoundingSphereDegenerateWorks) {
+    BBox b (Point (0, 0, 0), Point (0, 0, 0));
+
+    Point center;
+    float radius;
+
+    b.BoundingSphere (&center, &radius);
+
+    EXPECT_EQ (0, center.x);
+    EXPECT_EQ (0, center.y);
+    EXPECT_EQ (0, center.z);
+
+    EXPECT_EQ (0, radius);
+}
+
+// How do we come up wiht points that would generate a center point *outside*
+// the box?
+//TEST_F(BBoxTest, BoundingSphereCenterOutsideWorks) {
+    //BBox b (Point (?, ?, ?), Point (?, ?, ?));
+
+    //Point center;
+    //float radius;
+
+    //b.BoundingSphere (&center, &radius);
+
+    //EXPECT_EQ (?, center.x);
+    //EXPECT_EQ (?, center.y);
+    //EXPECT_EQ (?, center.z);
+
+    //EXPECT_EQ (?, radius);
+//}
