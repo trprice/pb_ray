@@ -19,9 +19,9 @@
  *	If not, see <http://www.opensource.org/licenses/MIT>
  *
  *
- *  File Name:
+ *  File Name: BBox_Tests.cpp
  *
- *  Purpose:
+ *  Purpose: Contain the tests for the BBox class.
  *
  *  Creation Date: 19-07-2013
  *
