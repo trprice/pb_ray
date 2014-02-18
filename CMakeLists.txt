@@ -6,15 +6,15 @@ project (pb_ray)
 if (WIN32)
     #set (CMAKE_CXX_FLAGS "-Wall")
 else (WIN32)
-    set (CMAKE_CXX_FLAGS "-Wall -Wextra")
+    set (CMAKE_CXX_FLAGS "-Wall -Wextra -std=c++11")
 endif (WIN32)
 
 set (_CMAKE_TOOLCHAIN_PREFIX llvm-)
 
     
 # Setup the version number
-set (Tutorial_VERSION_MAJOR 1)
-set (Tutorial_VERSION_MINOR 0)
+set (PB_Ray_VERSION_MAJOR 1)
+set (PB_Ray_VERSION_MINOR 0)
 
 
 # Setup the project directories.
@@ -52,7 +52,7 @@ include_directories("${PROJECT_BUILD_INCLUDE_DIR}")
 # Include Pthreads on Linux
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
     FIND_PACKAGE (Threads)
-    SET (CMAKE_CXX_FLAGS ${CMAKE_C_FLAGS} "-pthread")
+    SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux")
 
 # Enable ExternalProject CMake module
