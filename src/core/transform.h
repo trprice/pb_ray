@@ -70,4 +70,17 @@ class Matrix4x4 {
                     {{m20, m21, m22, m23}}, {{m30, m31, m32, m33}} }}
         {}
 
+
+    // Operators
+    bool operator== (Matrix4x4 mx) {
+        std::array <std::array <float, 4>, 4>::const_iterator it1, it2;
+
+        it1 = this->m.cbegin();
+        it2 = mx.m.cbegin();
+
+        for (; it1 < m.end(); ++it1, ++it2) {
+        }
+
+        return true;
+    }
 };
