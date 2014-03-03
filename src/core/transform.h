@@ -79,6 +79,8 @@ class Matrix4x4 {
         it2 = mx.m.cbegin();
 
         for (; it1 < m.end(); ++it1, ++it2) {
+            if (*it1 != *it2)
+                return false;
         }
 
         return true;

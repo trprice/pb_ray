@@ -64,7 +64,6 @@ TEST_F(Matrix4x4Test, ArgsConstructorWorks) {
                  0, 0, 0, 0,
                  0, 0, 0, 0);
 
-    // Test for the identity matrix
     EXPECT_EQ (0, m.m[0][0]);
     EXPECT_EQ (0, m.m[0][1]);
     EXPECT_EQ (0, m.m[0][2]);
@@ -84,4 +83,20 @@ TEST_F(Matrix4x4Test, ArgsConstructorWorks) {
     EXPECT_EQ (0, m.m[3][0]);
     EXPECT_EQ (0, m.m[3][1]);
     EXPECT_EQ (0, m.m[3][3]);
+}
+
+TEST_F(Matrix4x4Test, OperatorEqaulEqualTrue) {
+    Matrix4x4 m1, m2;
+
+    ASSERT_TRUE (m1 == m2);
+}
+
+TEST_F(Matrix4x4Test, OperatorEqaulEqualFalse) {
+    Matrix4x4 m1;
+    Matrix4x4 m2 (0, 0, 0, 0,
+                 1, 1, 1, 1,
+                 0, 0, 0, 0,
+                 0, 0, 0, 0);
+
+    ASSERT_FALSE (m1 == m2);
 }
