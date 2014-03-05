@@ -58,6 +58,35 @@ TEST_F(Matrix4x4Test, NoArgsConstructorWorks) {
 }
 
 // Test args constructor
+TEST_F(Matrix4x4Test, MatrixConstructorWorks) {
+    float f[4][4] = {{0, 0, 0, 0},
+                     {1, 1, 1, 1},
+                     {0, 0, 0, 0},
+                     {0, 0, 0, 0}};
+
+    Matrix4x4 m (f);
+
+    EXPECT_EQ (0, m.m[0][0]);
+    EXPECT_EQ (0, m.m[0][1]);
+    EXPECT_EQ (0, m.m[0][2]);
+    EXPECT_EQ (0, m.m[0][3]);
+
+    EXPECT_EQ (1, m.m[1][0]);
+    EXPECT_EQ (1, m.m[1][1]);
+    EXPECT_EQ (1, m.m[1][2]);
+    EXPECT_EQ (1, m.m[1][3]);
+
+    EXPECT_EQ (0, m.m[2][0]);
+    EXPECT_EQ (0, m.m[2][1]);
+    EXPECT_EQ (0, m.m[2][2]);
+    EXPECT_EQ (0, m.m[2][3]);
+
+    EXPECT_EQ (0, m.m[3][0]);
+    EXPECT_EQ (0, m.m[3][1]);
+    EXPECT_EQ (0, m.m[3][2]);
+    EXPECT_EQ (0, m.m[3][3]);
+}
+
 TEST_F(Matrix4x4Test, ArgsConstructorWorks) {
     Matrix4x4 m (0, 0, 0, 0,
                  1, 1, 1, 1,
@@ -75,23 +104,23 @@ TEST_F(Matrix4x4Test, ArgsConstructorWorks) {
     EXPECT_EQ (1, m.m[1][3]);
 
     EXPECT_EQ (0, m.m[2][0]);
-    EXPECT_EQ (0, m.m[2][0]);
+    EXPECT_EQ (0, m.m[2][1]);
     EXPECT_EQ (0, m.m[2][2]);
     EXPECT_EQ (0, m.m[2][3]);
 
     EXPECT_EQ (0, m.m[3][0]);
-    EXPECT_EQ (0, m.m[3][0]);
     EXPECT_EQ (0, m.m[3][1]);
+    EXPECT_EQ (0, m.m[3][2]);
     EXPECT_EQ (0, m.m[3][3]);
 }
 
-TEST_F(Matrix4x4Test, OperatorEqaulEqualTrue) {
+TEST_F(Matrix4x4Test, OperatorEqualEqualTrue) {
     Matrix4x4 m1, m2;
 
     ASSERT_TRUE (m1 == m2);
 }
 
-TEST_F(Matrix4x4Test, OperatorEqaulEqualFalse) {
+TEST_F(Matrix4x4Test, OperatorEqualEqualFalse) {
     Matrix4x4 m1;
     Matrix4x4 m2 (0, 0, 0, 0,
                  1, 1, 1, 1,
@@ -99,4 +128,82 @@ TEST_F(Matrix4x4Test, OperatorEqaulEqualFalse) {
                  0, 0, 0, 0);
 
     ASSERT_FALSE (m1 == m2);
+}
+
+TEST_F(Matrix4x4Test, OperatorNotEqualFalse) {
+    Matrix4x4 m1, m2;
+
+    ASSERT_FALSE (m1 != m2);
+}
+
+TEST_F(Matrix4x4Test, OperatorNotEqualTrue) {
+    Matrix4x4 m1;
+    Matrix4x4 m2 (0, 0, 0, 0,
+                 1, 1, 1, 1,
+                 0, 0, 0, 0,
+                 0, 0, 0, 0);
+
+    ASSERT_TRUE (m1 != m2);
+}
+
+TEST_F(Matrix4x4Test, MulWorks) {
+    Matrix4x4 m1 (1, 1, 1, 1,
+                  0, 0, 0, 0,
+                  0, 0, 0, 0,
+                  0, 0, 0, 0);
+    Matrix4x4 m2 (2, 0, 0, 0,
+                  2, 0, 0, 0,
+                  2, 0, 0, 0,
+                  2, 0, 0, 0);
+
+    Matrix4x4 r = Matrix4x4::Mul (m1, m2);
+
+    EXPECT_EQ (8, r.m[0][0]);
+    EXPECT_EQ (0, r.m[0][1]);
+    EXPECT_EQ (0, r.m[0][2]);
+    EXPECT_EQ (0, r.m[0][3]);
+
+    EXPECT_EQ (0, r.m[1][0]);
+    EXPECT_EQ (0, r.m[1][1]);
+    EXPECT_EQ (0, r.m[1][2]);
+    EXPECT_EQ (0, r.m[1][3]);
+
+    EXPECT_EQ (0, r.m[2][0]);
+    EXPECT_EQ (0, r.m[2][1]);
+    EXPECT_EQ (0, r.m[2][2]);
+    EXPECT_EQ (0, r.m[2][3]);
+
+    EXPECT_EQ (0, r.m[3][0]);
+    EXPECT_EQ (0, r.m[3][1]);
+    EXPECT_EQ (0, r.m[3][2]);
+    EXPECT_EQ (0, r.m[3][3]);
+}
+
+TEST_F(Matrix4x4Test, TransposeWorks) {
+    Matrix4x4 m1 (0, 0, 0, 0,
+                 1, 1, 1, 1,
+                 0, 0, 0, 0,
+                 0, 0, 0, 0);
+
+    Matrix4x4 m2 = Transpose(m1);
+
+    EXPECT_EQ (0, m2.m[0][0]);
+    EXPECT_EQ (1, m2.m[0][1]);
+    EXPECT_EQ (0, m2.m[0][2]);
+    EXPECT_EQ (0, m2.m[0][3]);
+
+    EXPECT_EQ (0, m2.m[1][0]);
+    EXPECT_EQ (1, m2.m[1][1]);
+    EXPECT_EQ (0, m2.m[1][2]);
+    EXPECT_EQ (0, m2.m[1][3]);
+
+    EXPECT_EQ (0, m2.m[2][0]);
+    EXPECT_EQ (1, m2.m[2][1]);
+    EXPECT_EQ (0, m2.m[2][2]);
+    EXPECT_EQ (0, m2.m[2][3]);
+
+    EXPECT_EQ (0, m2.m[3][0]);
+    EXPECT_EQ (1, m2.m[3][1]);
+    EXPECT_EQ (0, m2.m[3][2]);
+    EXPECT_EQ (0, m2.m[3][3]);
 }
