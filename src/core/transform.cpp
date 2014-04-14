@@ -37,3 +37,30 @@ Matrix4x4 Transpose (const Matrix4x4 &m) {
                       m.m[0][2], m.m[1][2], m.m[2][2], m.m[3][2],
                       m.m[0][3], m.m[1][3], m.m[2][3], m.m[3][3]);
 }
+
+Matrix4x4 Inverse (const Matrix4x4 &inputMatrix) {
+    int columnIndex[4], rowIndex[4];
+    int pivot[4] = {0, 0, 0, 0};
+    float inverseMatrix[4][4];
+    int i, j, k;
+
+    memcpy (inverseMatrix, inputMatrix, 4 * 4 * sizeof(float));
+
+    for (i = 0; i < 4; i++) {
+        int row = -1, column = -1;
+        float biggestValue = 0.;
+        
+        // Choose a pivot
+        for (j = 0; j < 4; j++) {
+            if (pivot[i] != 1) {
+                for (k = 0; k < 4; k++) {
+                    if (fabsf (inverseMatrix[j][k] >= biggestValue)) {
+                        biggestValue = float (fabs(inverseMatrix[j][k]));
+                        row = j;
+                        column = k;
+                    }
+                }
+            }
+        }
+    }
+}
