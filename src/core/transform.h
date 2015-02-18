@@ -75,7 +75,14 @@ class Matrix4x4 {
                    float m30, float m31, float m32, float m33) :
                 m( {{ {{m00, m01, m02, m03}}, {{m10, m11, m12, m13}},
                     {{m20, m21, m22, m23}}, {{m30, m31, m32, m33}} }} )
-        {} 
+        {}
+
+		Matrix4x4(std::array <std::array <float, 4>, 4> mat):
+                m( {{ {{mat[0][0], mat[0][1], mat[0][2], mat[0][3]}},
+                     {{mat[1][0], mat[1][1], mat[1][2], mat[1][3]}},
+                     {{mat[2][0], mat[2][1], mat[2][2], mat[2][3]}},
+                     {{mat[3][0], mat[3][1], mat[3][2], mat[3][3]}} }} )
+        {}
 
 
     // Operators

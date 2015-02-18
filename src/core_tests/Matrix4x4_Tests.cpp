@@ -87,6 +87,36 @@ TEST_F(Matrix4x4Test, MatrixConstructorWorks) {
     EXPECT_EQ (0, m.m[3][3]);
 }
 
+// Test Array constructor
+TEST_F(Matrix4x4Test, ArrrayConstructorWorks) {
+	std::array <std::array <float, 4>, 4> f = { { 0, 0, 0, 0 },
+	{ 1, 1, 1, 1 },
+	{ 0, 0, 0, 0 },
+	{ 0, 0, 0, 0 } };
+
+	Matrix4x4 m(f);
+
+	EXPECT_EQ(0, m.m[0][0]);
+	EXPECT_EQ(0, m.m[0][1]);
+	EXPECT_EQ(0, m.m[0][2]);
+	EXPECT_EQ(0, m.m[0][3]);
+
+	EXPECT_EQ(1, m.m[1][0]);
+	EXPECT_EQ(1, m.m[1][1]);
+	EXPECT_EQ(1, m.m[1][2]);
+	EXPECT_EQ(1, m.m[1][3]);
+
+	EXPECT_EQ(0, m.m[2][0]);
+	EXPECT_EQ(0, m.m[2][1]);
+	EXPECT_EQ(0, m.m[2][2]);
+	EXPECT_EQ(0, m.m[2][3]);
+
+	EXPECT_EQ(0, m.m[3][0]);
+	EXPECT_EQ(0, m.m[3][1]);
+	EXPECT_EQ(0, m.m[3][2]);
+	EXPECT_EQ(0, m.m[3][3]);
+}
+
 TEST_F(Matrix4x4Test, ArgsConstructorWorks) {
     Matrix4x4 m (0, 0, 0, 0,
                  1, 1, 1, 1,

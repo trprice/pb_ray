@@ -41,10 +41,9 @@ Matrix4x4 Transpose (const Matrix4x4 &m) {
 Matrix4x4 Inverse (const Matrix4x4 &inputMatrix) {
     int columnIndex[4], rowIndex[4];
     int pivot[4] = {0, 0, 0, 0};
-    float inverseMatrix[4][4];
     int i, j, k;
 
-    memcpy (inverseMatrix, inputMatrix, 4 * 4 * sizeof(float));
+	std::array <std::array <float, 4>, 4> inverseMatrix(inputMatrix.m);
 
     for (i = 0; i < 4; i++) {
         int row = -1, column = -1;
@@ -63,4 +62,6 @@ Matrix4x4 Inverse (const Matrix4x4 &inputMatrix) {
             }
         }
     }
+
+	return Matrix4x4(inverseMatrix);
 }
