@@ -32,13 +32,14 @@
 #define PB_RAY_WINDOWS
 #endif
 
+#include <math.h>
+#include <assert.h>
+#include <algorithm>
+
 #ifndef INFINITY
 #define INFINITY FLT_MAX
 #endif
 
-#include <math.h>
-#include <assert.h>
-#include <algorithm>
 using std::min;
 using std::max;
 
