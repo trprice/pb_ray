@@ -89,10 +89,10 @@ TEST_F(Matrix4x4Test, MatrixConstructorWorks) {
 
 // Test Array constructor
 TEST_F(Matrix4x4Test, ArrrayConstructorWorks) {
-	std::array <std::array <float, 4>, 4> f = { { 0, 0, 0, 0 },
+	std::array <std::array <float, 4>, 4> f { { { 0, 0, 0, 0 },
 	{ 1, 1, 1, 1 },
 	{ 0, 0, 0, 0 },
-	{ 0, 0, 0, 0 } };
+	{ 0, 0, 0, 0 } } };
 
 	Matrix4x4 m(f);
 
